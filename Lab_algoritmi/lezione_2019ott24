@@ -1,0 +1,69 @@
+ARRAY INTERI = Puntatore al 1° elemento
+Dichiarazione:
+    int a[1000];
+    int b[] = {5,3,7,...};
+Passaggio solo per riferimento:
+    void foo(int *a, int len){
+        ...
+        a[o]=5;
+        a[1]=6;
+        ...
+    }
+Chiamata:
+    foo(a, 50);
+    foo(b, sizeof(b)); // o sizeof(int)
+
+
+stampare un array:
+// dicharando *a esplicito già che è un puntatore, quindi quando lo uso nella funzione non devo mettere la &
+
+   void printArray(int *a; int len){
+        for(int i=0; i<len; i++)
+            printf("%i ", a[i]);
+   }
+
+leggere un array da tastiera (in C)
+
+int scanArray(int *a, int maxlen){
+    char str[1000];
+    scanf("%999[^\n]", str);
+    int i=0, j=0, res, offset, value;
+    do {
+        res = sscanf(str+j, "%i %n", &value, &offsset);
+        if(res==1){
+            a[i++]=value;
+            j=j+offset
+        }
+    } while((res==1)&&(i<maxlen));
+    return i;
+}
+
+leggere un array da tastiera (in C++)
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+
+using namespace std;
+
+    // dichiaro una funzione operatore chiamata << e come risultato passo il puntatore
+    // devo ritornare uno strem di output per concatenarlo
+ostream &operator <<(ostream &out, vector<int> a){
+    for(int i=0; i<a.size(); i++)
+        out << a[i] << " ";
+    out << enld;
+    return out;
+}
+
+    // per caricare un vettore di interi
+    // devo per forza passare a con riferimento implicito
+istream &operator >>(istream &in, vector<int> &a){
+    string line;
+    getline(in, line);
+    istringstream s(line);
+    int value;
+    while(s >> value){
+        a.pushback(value);
+    }
+    return in;
+}

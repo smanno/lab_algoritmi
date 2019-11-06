@@ -1,0 +1,46 @@
+#include <stdio.h> // per C
+#include <iostream> // per C++
+
+int main() {
+    std::cout << "Hello world" << std::endl;
+    // printf(" Hello world \n");
+    // std::cin >> ____ // input C++
+    // scanf("%i_%i", &x_&y) // input C di due interi da salvare su due puntatori
+    return 0;
+}
+/*
+// senza puntatori
+int f(int x) {
+    x = x+1;
+    return x;
+}
+int main () {
+    int x = 5, y = 7;
+    y = f(x);
+    printf(" %i %i \n ", x,y); // stampa due interi, x e y, che valgono 5 e 6
+}
+*/
+/*
+// con puntatori
+int f(int &x) {
+    &x = (&x)+1;
+    return &x;
+}
+int main () {
+    int x = 5, y = 7;
+    y = f(&x);
+    printf(" %i %i \n ", x,y); // stampa due interi, x e y, entrambi 6 perchè viene aggiornato il valore di x
+}
+*/
+/*
+// con puntatori
+int f(int &x) {
+    &x = &(x+1); // il puntatore x+1 punta alla posizione in memoria successiva a x, potremmo trovaare y o a caso
+    return &x;
+}
+int main () {
+    int x = 5, y = 7;
+    y = f(&x);
+    printf(" %i %i \n ", x,y); // stampa due interi, x e y, entrambi 7 oppure un numero a caso
+}
+*/

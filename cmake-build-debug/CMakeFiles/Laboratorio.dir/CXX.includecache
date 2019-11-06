@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/es11.h
+minMAXheap.h
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/minMAXheap.h
+
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/funzioni.h
+iostream
+-
+sstream
+-
+vector
+-
+
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/main.cpp
+iostream
+-
+string.h
+-
+funzioni.h
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/funzioni.h
+es11.h
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/es11.h
+
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/minMAXheap.h
+vector
+-
+string.h
+-
+sstream
+-
+funzioni.h
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/funzioni.h
+
