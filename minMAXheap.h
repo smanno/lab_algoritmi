@@ -102,17 +102,27 @@ void MaxHeap::heapify(int index) {
 }
 
 void MaxHeap::extract() {
+    int i = length()-1, j=0;
+    swap( arrayNodes[0], arrayNodes[i]);
+    arrayNodes.erase(arrayNodes.begin()+i);
+    heapify(0);
+    /*
     arrayNodes.erase(arrayNodes.begin());
     for(int i=(arrayNodes.size()/2)-1; i>=0; --i){
         heapify(i);
-    }
+    }*/
 }
 
 void MaxHeap::change(int index, int newNumber) {
     arrayNodes[index] = newNumber;
+    while (index>0 && arrayNodes[index]>arrayNodes[parent(index)]){
+        swap(arrayNodes[index],arrayNodes[parent(index)]);
+        index = parent(index);
+    }
+    /*
     for(int i=(arrayNodes.size()/2)-1; i>=0; --i){
         heapify(i);
-    }
+    }*/
 }
 
 void MaxHeap::insert(int number) {
@@ -162,17 +172,27 @@ void MinHeap::heapify(int index) {
 }
 
 void MinHeap::extract() {
+    int i = length()-1, j=0;
+    swap( arrayNodes[0], arrayNodes[i]);
+    arrayNodes.erase(arrayNodes.begin()+i);
+    heapify(0);
+    /*
     arrayNodes.erase(arrayNodes.begin());
     for(int i=(arrayNodes.size()/2)-1; i>=0; --i){
         heapify(i);
-    }
+    }*/
 }
 
 void MinHeap::change(int index, int newNumber) {
     arrayNodes[index] = newNumber;
+    while (index>0 && arrayNodes[index]<arrayNodes[parent(index)]){
+        swap(arrayNodes[index],arrayNodes[parent(index)]);
+        index = parent(index);
+    }
+    /*
     for(int i=(arrayNodes.size()/2)-1; i>=0; --i){
         heapify(i);
-    }
+    }*/
 }
 
 void MinHeap::insert(int number) {
