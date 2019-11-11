@@ -31,25 +31,12 @@ protected:
 public:
     void build();
     void build(vector<int>);
-    string toString();
+    string toString();          // prints the heap arrayNodes
     int length();
-    int getRoot();
+    int getRoot();              // returns the root without deleting it
 };
 
-string Heap::toString(){
-    vector<int> arrayToPrint = arrayNodes;
-    string result = "";
-    while(!arrayToPrint.empty()){
-        int numberToAdd = arrayToPrint.back();
-        stringstream ss;
-        ss<<numberToAdd;
-        string s;
-        ss>>s;
-        result = s + " " + result;
-        arrayToPrint.pop_back();
-    }
-    return result;
-}
+void Heap::build() { arrayNodes; }
 
 void Heap::build(vector<int> arrayOfNumbers) {
     arrayNodes = arrayOfNumbers;
@@ -64,16 +51,34 @@ int Heap::right(int index) { return (2 * index) + 2; }
 
 int Heap::getRoot() { return arrayNodes[0]; }
 
+string Heap::toString(){
+    vector<int> arrayToPrint = arrayNodes;
+    string result;
+    while(!arrayToPrint.empty()){
+        int numberToAdd = arrayToPrint.back();
+        stringstream ss;
+        ss<<numberToAdd;
+        string s;
+        ss>>s;
+        result = s + " " + result;
+        arrayToPrint.pop_back();
+    }
+    return result;
+}
+
     /**
      * CLASS MaxHeap
+     * every node has a value lower than his parent
+     * every node has a value greater than his children
      */
 class MaxHeap: public Heap{
+protected:
+    void heapify(int);
 public:
     void build(vector<int>);
-    void heapify(int);
-    void insert(int);
-    void extract();
-    void change(int,int);
+    void insert(int);           // insert new number and heapify
+    void extract();             // delete the root and heapify
+    void change(int,int);       // replace replace arrayNodes[index] with the chosen number
 };
 
 void MaxHeap::build(vector<int> arrayOfNumbers) {
@@ -128,14 +133,17 @@ void MaxHeap::insert(int number) {
 
     /**
      * CLASS MinHeap
+     * every node has a value greater than his parent
+     * every node has a value lower than his children
      */
 class MinHeap: public Heap{
+protected:
+    void heapify(int);
 public:
     void build(vector<int>);
-    void heapify(int);
-    void insert(int);
-    void extract();
-    void change(int,int);
+    void insert(int);           // insert new number and heapify
+    void extract();             // delete the root and heapify
+    void change(int,int);       // replace replace arrayNodes[index] with the chosen number
 };
 
 void MinHeap::build(vector<int> arrayOfNumbers) {
