@@ -82,12 +82,14 @@ int es11minHeap(){
             }
             case length:{
                 result = heapToUse.length();
-                cout<<result<<endl;
+                stampa = heapToUse.toString();
+                cout<<result<<endl<<stampa<<endl;
                 break;
             }
             case getmin:{
                 result = heapToUse.getRoot();
-                cout<<result<<endl;
+                stampa = heapToUse.toString();
+                cout<<result<<endl<<stampa<<endl;
                 break;
             }
             case extract:{
