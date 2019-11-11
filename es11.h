@@ -58,28 +58,67 @@ input=exit
 #include "funzioni.h"
 #endif
 */
+enum Options{
+    invalid, build, length, getmin, extract, insert, change
+};
+
+Options resolveOption(string);
+
 int es11minHeap(){
-    // prove funzionamento corretto
     string useFunction = "func";
     vector<int> arrayOfNumbers;
-    cin >> useFunction >> arrayOfNumbers;
+    MinHeap heapToUse;
+    string stampa = "";
+    int result = 0;
 
-    MaxHeap heapProva;
-    heapProva.build(arrayOfNumbers);
-    int addNum = 0;
-    cin >> addNum;
-    heapProva.insert(addNum);
-    heapProva.extract();
-
-    string stampa = heapProva.toString();
-    cout << useFunction << " " << stampa << endl;
-    int s = heapProva.getRoot();
-    cout << s << endl;
-
-    int pos = 0;
-    cin >> addNum >> pos;
-    heapProva.change(addNum, pos);
-    stampa = heapProva.toString();
-    cout << useFunction << " " << stampa << endl;
+    do{
+        cin >> useFunction >> arrayOfNumbers;
+        switch (resolveOption(useFunction)) {
+            case build:{
+                heapToUse.build(arrayOfNumbers);
+                stampa = heapToUse.toString();
+                cout<<stampa<<endl;
+                break;
+            }
+            case length:{
+                result = heapToUse.length();
+                cout<<result<<endl;
+                break;
+            }
+            case getmin:{
+                result = heapToUse.getRoot();
+                cout<<result<<endl;
+                break;
+            }
+            case extract:{
+                heapToUse.extract();
+                stampa = heapToUse.toString();
+                cout<<stampa<<endl;
+                break;
+            }
+            case insert:{
+                heapToUse.insert(arrayOfNumbers[0]);
+                stampa = heapToUse.toString();
+                cout<<stampa<<endl;
+                break;
+            }
+            case change:{
+                heapToUse.change(arrayOfNumbers[0], arrayOfNumbers[1]);
+                stampa = heapToUse.toString();
+                cout<<stampa<<endl;
+                break;
+            }
+        }
+    } while(resolveOption(useFunction)!=invalid);
     return 0;
+}
+
+Options resolveOption(string inputFunction){
+    if(inputFunction == "build") return build;
+    if(inputFunction == "length") return length;
+    if(inputFunction == "getmin") return getmin;
+    if(inputFunction == "extract") return extract;
+    if(inputFunction == "insert") return insert;
+    if(inputFunction == "change") return change;
+    return invalid;
 }

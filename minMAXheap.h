@@ -37,7 +37,7 @@ public:
 };
 
 string Heap::toString(){
-    vector<int> arrayToPrint = this->arrayNodes;
+    vector<int> arrayToPrint = arrayNodes;
     string result = "";
     while(!arrayToPrint.empty()){
         int numberToAdd = arrayToPrint.back();
@@ -97,7 +97,7 @@ void MaxHeap::heapify(int index) {
     }
     if(newIndex != index){
         swap(arrayNodes[index],arrayNodes[newIndex]);
-        this->heapify(newIndex);
+        heapify(newIndex);
     }
 }
 
@@ -108,7 +108,7 @@ void MaxHeap::extract() {
     }
 }
 
-void MaxHeap::change(int newNumber, int index) {
+void MaxHeap::change(int index, int newNumber) {
     arrayNodes[index] = newNumber;
     for(int i=(arrayNodes.size()/2)-1; i>=0; --i){
         heapify(i);
@@ -127,7 +127,6 @@ void MaxHeap::insert(int number) {
     /**
      * CLASS MinHeap
      */
-/*
 class MinHeap: public Heap{
 public:
     void build(vector<int>);
@@ -139,8 +138,48 @@ public:
 
 void MinHeap::build(vector<int> arrayOfNumbers) {
     arrayNodes = arrayOfNumbers;
-    for(int i=arrayNodes.size()/2; i>0; --i){
+    for(int i=(arrayNodes.size()/2)-1; i>=0; --i){
         heapify(i);
     }
 }
-*/
+
+void MinHeap::heapify(int index) {
+    int newIndex;
+    int l = left(index);
+    int r = right(index);
+    if(l <= length()-1 && arrayNodes[l] < arrayNodes[index]){
+        newIndex = l;
+    } else {
+        newIndex = index;
+    }
+    if(r <= length()-1 && arrayNodes[r] < arrayNodes[newIndex]){
+        newIndex = r;
+    }
+    if(newIndex != index){
+        swap(arrayNodes[index],arrayNodes[newIndex]);
+        heapify(newIndex);
+    }
+}
+
+void MinHeap::extract() {
+    arrayNodes.erase(arrayNodes.begin());
+    for(int i=(arrayNodes.size()/2)-1; i>=0; --i){
+        heapify(i);
+    }
+}
+
+void MinHeap::change(int index, int newNumber) {
+    arrayNodes[index] = newNumber;
+    for(int i=(arrayNodes.size()/2)-1; i>=0; --i){
+        heapify(i);
+    }
+}
+
+void MinHeap::insert(int number) {
+    arrayNodes.push_back(number);
+    int i = length()-1;
+    while (i>0 && arrayNodes[i]<arrayNodes[parent(i)]){
+        swap(arrayNodes[i],arrayNodes[parent(i)]);
+        i = parent(i);
+    }
+}

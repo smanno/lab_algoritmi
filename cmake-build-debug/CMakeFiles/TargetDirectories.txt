@@ -1,3 +1,3 @@
-C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/cmake-build-debug/CMakeFiles/Laboratorio.dir
-C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/stefano/CLionProjects/lab_algoritmi/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/stefano/CLionProjects/lab_algoritmi/cmake-build-debug/CMakeFiles/Laboratorio.dir
+C:/Users/stefano/CLionProjects/lab_algoritmi/cmake-build-debug/CMakeFiles/edit_cache.dir
