@@ -56,11 +56,11 @@ void Heap::build(vector<int> arrayOfNumbers) {
 }
 int Heap::length() { return arrayNodes.size(); }
 
-int Heap::parent(int index)  { return index / 2; }
+int Heap::parent(int index)  { return (index - 1) / 2; }
 
-int Heap::left(int index) { return 2 * index; }
+int Heap::left(int index) { return (2 * index) + 1; }
 
-int Heap::right(int index) { return 2 * index; }
+int Heap::right(int index) { return (2 * index) + 2; }
 
 int Heap::getRoot() { return arrayNodes[0]; }
 
@@ -78,22 +78,22 @@ public:
 
 void MaxHeap::build(vector<int> arrayOfNumbers) {
     arrayNodes = arrayOfNumbers;
-    for(int i=arrayNodes.size()/2; i>=0; --i){
+    for(int i=(arrayNodes.size()/2) -1; i>=0; --i){
         heapify(i);
     }
 }
 
 void MaxHeap::heapify(int index) {
     int newIndex;
-    int left = this->left(index);
-    int right = this->right(index);
-    if(left<=this->length() && arrayNodes[left]>arrayNodes[index]){
-        newIndex = left;
+    int l = left(index);
+    int r = right(index);
+    if(l <= length()-1 && arrayNodes[l] > arrayNodes[index]){
+        newIndex = l;
     } else {
         newIndex = index;
     }
-    if(right<=this->length() && arrayNodes[right]>arrayNodes[index]){
-        newIndex = right;
+    if(r <= length()-1 && arrayNodes[r] > arrayNodes[newIndex]){
+        newIndex = r;
     }
     if(newIndex != index){
         swap(arrayNodes[index],arrayNodes[newIndex]);
@@ -103,20 +103,22 @@ void MaxHeap::heapify(int index) {
 
 void MaxHeap::extract() {
     arrayNodes.erase(arrayNodes.begin());
-    for(int i=arrayNodes.size()/2; i>0; --i){
+    for(int i=(arrayNodes.size()/2)-1; i>=0; --i){
         heapify(i);
     }
 }
 
-void MaxHeap::change(int index, int newNumber) {
+void MaxHeap::change(int newNumber, int index) {
     arrayNodes[index] = newNumber;
-    heapify(index);
+    for(int i=(arrayNodes.size()/2)-1; i>=0; --i){
+        heapify(i);
+    }
 }
 
 void MaxHeap::insert(int number) {
-    this->arrayNodes.push_back(number);
-    int i = this->length();
-    while (i>1 && arrayNodes[i]>arrayNodes[parent(i)]){
+    arrayNodes.push_back(number);
+    int i = length()-1;
+    while (i>0 && arrayNodes[i]>arrayNodes[parent(i)]){
         swap(arrayNodes[i],arrayNodes[parent(i)]);
         i = parent(i);
     }

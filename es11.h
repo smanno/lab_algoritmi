@@ -59,13 +59,27 @@ input=exit
 #endif
 */
 int es11minHeap(){
+    // prove funzionamento corretto
+    string useFunction = "func";
     vector<int> arrayOfNumbers;
-    cin >> arrayOfNumbers;
+    cin >> useFunction >> arrayOfNumbers;
+
     MaxHeap heapProva;
     heapProva.build(arrayOfNumbers);
+    int addNum = 0;
+    cin >> addNum;
+    heapProva.insert(addNum);
+    heapProva.extract();
+
     string stampa = heapProva.toString();
-    cout << stampa << endl;
+    cout << useFunction << " " << stampa << endl;
     int s = heapProva.getRoot();
     cout << s << endl;
+
+    int pos = 0;
+    cin >> addNum >> pos;
+    heapProva.change(addNum, pos);
+    stampa = heapProva.toString();
+    cout << useFunction << " " << stampa << endl;
     return 0;
 }
