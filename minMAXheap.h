@@ -15,7 +15,7 @@
 #ifndef funzioni.h
 #include "funzioni.h"
 #endif
- */
+*/
 
 using namespace std;
 
@@ -29,6 +29,7 @@ protected:
     int left(int);
     int right(int);
 public:
+    void build();
     void build(vector<int>);
     string toString();
     int length();

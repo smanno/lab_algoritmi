@@ -53,7 +53,11 @@ input=exit
 #ifndef minMAXheap.h
 #include "minMAXheap.h"
 #endif
-
+/*
+#ifndef funzioni.h
+#include "funzioni.h"
+#endif
+*/
 int es11minHeap(){
     vector<int> arrayOfNumbers;
     cin >> arrayOfNumbers;
