@@ -6,13 +6,9 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/stefano/CLionProjects/lab_algoritmi/es11.h
-minMAXheap.h
-C:/Users/stefano/CLionProjects/lab_algoritmi/minMAXheap.h
-funzioni.h
-C:/Users/stefano/CLionProjects/lab_algoritmi/funzioni.h
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/es12.h
 
-C:/Users/stefano/CLionProjects/lab_algoritmi/funzioni.h
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/funzioni.h
 iostream
 -
 sstream
@@ -20,23 +16,13 @@ sstream
 vector
 -
 
-C:/Users/stefano/CLionProjects/lab_algoritmi/main.cpp
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/main.cpp
 iostream
 -
 string.h
 -
 funzioni.h
-C:/Users/stefano/CLionProjects/lab_algoritmi/funzioni.h
-es11.h
-C:/Users/stefano/CLionProjects/lab_algoritmi/es11.h
-
-C:/Users/stefano/CLionProjects/lab_algoritmi/minMAXheap.h
-vector
--
-string.h
--
-sstream
--
-funzioni.h
-C:/Users/stefano/CLionProjects/lab_algoritmi/funzioni.h
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/funzioni.h
+es12.h
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/es12.h
 

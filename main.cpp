@@ -17,7 +17,8 @@
 //#include "es8.h"
 //#include "es9.h"
 //#include "es10.h"
-#include "es11.h"
+//#include "es11.h"
+#include "es12.h"
 
 using namespace std;
 
@@ -32,6 +33,7 @@ int main() {
     //es8arrayIntervalWithGivenSum();
     //es9majority();
     //es10sort();
-    es11minHeap();
+    //es11minHeap();
+    es12selection();
     return 0;
 }

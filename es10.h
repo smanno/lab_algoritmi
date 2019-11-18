@@ -25,8 +25,8 @@ int es10sort(){
     cin >> arrayOfNumbers;
     //insertionSort(arrayOfNumbers);
     int len = arrayOfNumbers.size();
-    mergeSort(arrayOfNumbers,0,len-1);
-    //quickSort(arrayOfNumbers,0,len-1);      // len-1 visto che non è pseudocodice
+    //mergeSort(arrayOfNumbers,0,len-1);
+    quickSort(arrayOfNumbers,0,len-1);      // len-1 visto che non è pseudocodice
     cout << arrayOfNumbers << endl;
     return 0;
 }

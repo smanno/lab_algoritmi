@@ -23,19 +23,56 @@ In entrambi i casi la complessità asintotica dell'algoritmo dovrà essere O(nk)
 fornito in input.
 * Provare ad analizzare anche la complessità dei due algoritmi nel caso medio.
 
-** Infine, provare a implementare una variante dell'algoritmo di selezione basata su heap (usare una heap ausiliaria,
- * ad esempio una min-heap, per estrarre in sequenza i primi k elementi dall'array ordinato). In quest'ultimo caso la
- * complessità asintotica nel caso pessimo e medio dovrebbe risultare O(klogk).
- * => perchè vado a lavorare sui primi k elementi tralasciando gli altri
  *
-** Usando le heap senza HeapSort
- * -- uso k volte extract theta(k*logn)
+ *      SELECTION con HEAP
+ * input vettore+k
+ * output k-esimo elemento più piccolo
+ * complessità O(k*logk+n)
+ * 1) faccio la minHeap A
+ *                  - costo theta(n)
+ * 2) inizializzo heap B che contiene elementi formati
+ *    da struct<int,int> valore e posizione in heapA
+ * 3) per k volte
+ *    elimino se c'è la radice di heapB
+ *    usando il puntatore(posizione dell'elemento nella heapA) del nodo tolto inserisco i suoi successori
+*                   - costo n
+ * 4) restituisco la radice di questa heapB
  *
-** Heap 2° limito heapify ad altezza 2^k
- * -- theta(k*log2^k) = theta(k^2)
- *
-** Heap 3° in tempo O(k*logk) -> k estrazioni da una heap ausiliaria di puntatori
- * HeapA di dimensione n
- * HeapB di dimensione 0,1,2,...,2k (da vuota si riempie)
- * ad ogni iterazione inserisco due elementi
+ *      SELECTION con SELECT
+ * implementa l'algoritmo select (la teoria sta sugli appunti) dopo aver cercato lo pseudocodice su internet
+ * inziare a prendere le durate dei programmi usando il clock all'inizio e alla fine
+ * però deve essere stoppato quando si prendono gli input
  */
+
+int partition(vector<int> &arrayOfNumbers, int start, int end){
+    int key = arrayOfNumbers[end];
+    int i = start-1;
+    for(int j=start; j<=end; j++){                  // con j<end non fa l'ultima iterazione e continua all'infinito
+        if(arrayOfNumbers[j]<=key){
+            i++;
+            swap(arrayOfNumbers[i],arrayOfNumbers[j]);
+        }
+    }
+    return i;
+}
+
+void quickSelect(vector<int> &arrayOfNumbers, int start, int end, int index){
+    if(start>=end) return;
+    if(index<start || index>end) return;
+    int partitionIndex = partition(arrayOfNumbers,start,end);
+    quickSelect(arrayOfNumbers,start,partitionIndex-1,index);
+    quickSelect(arrayOfNumbers,partitionIndex+1,end,index);
+}
+
+int es12selection(){
+    vector<int> arrayOfNumbers;
+    int number;
+    cin>>arrayOfNumbers;
+    cin>>number;
+
+    int len = arrayOfNumbers.size();
+    quickSelect(arrayOfNumbers,0,len-1,number-1);
+
+    cout<<arrayOfNumbers[number-1]<<endl;
+    return 0;
+}
