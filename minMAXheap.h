@@ -25,12 +25,13 @@ using namespace std;
 class Heap{
 protected:
     vector<int> arrayNodes;
+public:
     int parent(int);
     int left(int);
     int right(int);
-public:
     void build();
     void build(vector<int>);
+    vector<int> getVector();
     string toString();          // prints the heap arrayNodes
     int length();
     int getRoot();              // returns the root without deleting it
@@ -38,8 +39,8 @@ public:
 
 void Heap::build() { arrayNodes; }
 
-void Heap::build(vector<int> arrayOfNumbers) {
-    arrayNodes = arrayOfNumbers;
+void Heap::build(vector<int> input) {
+    arrayNodes = input;
 }
 int Heap::length() { return arrayNodes.size(); }
 
@@ -65,6 +66,8 @@ string Heap::toString(){
     }
     return result;
 }
+
+vector<int> Heap::getVector() { return arrayNodes; }
 
     /**
      * CLASS MaxHeap
@@ -157,12 +160,12 @@ void MinHeap::heapify(int index) {
     int newIndex;
     int l = left(index);
     int r = right(index);
-    if(l <= length()-1 && arrayNodes[l] < arrayNodes[index]){
+    if(l <= length()-1 && arrayNodes[l] <= arrayNodes[index]){
         newIndex = l;
     } else {
         newIndex = index;
     }
-    if(r <= length()-1 && arrayNodes[r] < arrayNodes[newIndex]){
+    if(r <= length()-1 && arrayNodes[r] <= arrayNodes[newIndex]){
         newIndex = r;
     }
     if(newIndex != index){
@@ -195,3 +198,70 @@ void MinHeap::insert(int number) {
         i = parent(i);
     }
 }
+
+        /**
+         * CLASS DoubleMinHeap
+         * every node has a value greater than his parent
+         * every node has a value lower than his children
+         */
+struct valueIndex {
+    int value;
+    int index;
+};
+
+class DoubleMinHeap: public Heap{
+protected:
+    vector<valueIndex> arrayNodes;
+    void heapify(int);
+public:
+    void build(vector<valueIndex>);
+    valueIndex getRoot();
+    void insert(int,int);           // insert new number and heapify
+    void extract();                 // delete the root and heapify
+};
+
+void DoubleMinHeap::build(vector<valueIndex> input) {
+    arrayNodes = input;
+    for(int i=(arrayNodes.size()/2)-1; i>=0; --i){
+        heapify(i);
+    }
+}
+
+void DoubleMinHeap::heapify(int index) {
+    int newIndex;
+    int l = left(index);
+    int r = right(index);
+    if(l <= length()-1 && arrayNodes[l].value <= arrayNodes[index].value){
+        newIndex = l;
+    } else {
+        newIndex = index;
+    }
+    if(r <= length()-1 && arrayNodes[r].value <= arrayNodes[newIndex].value){
+        newIndex = r;
+    }
+    if(newIndex != index){
+        swap(arrayNodes[index],arrayNodes[newIndex]);
+        heapify(newIndex);
+    }
+}
+
+void DoubleMinHeap::insert(int number, int index) {
+    valueIndex input;
+    input.value = number;
+    input.index = index;
+    arrayNodes.push_back(input);
+    int i = length()-1;
+    while (i>0 && arrayNodes[i].value<arrayNodes[parent(i)].value){
+        swap(arrayNodes[i],arrayNodes[parent(i)]);
+        i = parent(i);
+    }
+}
+
+void DoubleMinHeap::extract() {
+    int i = length()-1, j=0;
+    swap( arrayNodes[0], arrayNodes[i]);
+    arrayNodes.erase(arrayNodes.begin()+i);
+    heapify(0);
+}
+
+valueIndex DoubleMinHeap::getRoot() { return arrayNodes[0]; }

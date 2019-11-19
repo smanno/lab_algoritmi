@@ -33,7 +33,7 @@ fornito in input.
  * 2) inizializzo heap B che contiene elementi formati
  *    da struct<int,int> valore e posizione in heapA
  * 3) per k volte
- *    elimino se c'è la radice di heapB
+ *    elimino la radice di heapB
  *    usando il puntatore(posizione dell'elemento nella heapA) del nodo tolto inserisco i suoi successori
 *                   - costo n
  * 4) restituisco la radice di questa heapB
@@ -43,6 +43,9 @@ fornito in input.
  * inziare a prendere le durate dei programmi usando il clock all'inizio e alla fine
  * però deve essere stoppato quando si prendono gli input
  */
+#ifndef minMAXheap.h
+#include "minMAXheap.h"
+#endif
 
 int partition(vector<int> &arrayOfNumbers, int start, int end){
     int key = arrayOfNumbers[end];
@@ -69,10 +72,35 @@ int es12selection(){
     int number;
     cin>>arrayOfNumbers;
     cin>>number;
-
+    /*
     int len = arrayOfNumbers.size();
     quickSelect(arrayOfNumbers,0,len-1,number-1);
-
     cout<<arrayOfNumbers[number-1]<<endl;
+    */
+    MinHeap heapA;
+    heapA.build(arrayOfNumbers);
+    arrayOfNumbers = heapA.getVector();
+    // prova
+    cout<<arrayOfNumbers<<endl;
+    int len = arrayOfNumbers.size();
+    quickSelect(arrayOfNumbers,0,len-1,number-1);
+    cout<<arrayOfNumbers<<endl;
+    // prova
+    DoubleMinHeap heapB;
+    heapB.insert(arrayOfNumbers[0],0);
+    valueIndex root;
+
+    for(int i=0; i<number-1; i++){
+        root = heapB.getRoot();
+        int left = heapB.left(root.index);
+        int right = heapB.right(root.index);
+        heapB.extract();
+        heapB.insert(arrayOfNumbers[left],left);
+        heapB.insert(arrayOfNumbers[right], right);
+    }
+
+    root = heapB.getRoot();
+    cout<<root.value<<endl;
+
     return 0;
 }
