@@ -92,8 +92,8 @@ int es12selection(){
 
     for(int i=0; i<number-1; i++){
         root = heapB.getRoot();
-        int left = heapB.left(root.index);
-        int right = heapB.right(root.index);
+        int left = (root.index*2)+1;
+        int right = (root.index*2)+2;
         heapB.extract();
         heapB.insert(arrayOfNumbers[left],left);
         heapB.insert(arrayOfNumbers[right], right);

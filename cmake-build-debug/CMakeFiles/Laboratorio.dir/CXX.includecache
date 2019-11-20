@@ -7,6 +7,8 @@
 #IncludeRegexTransform: 
 
 C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/es12.h
+minMAXheap.h
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/minMAXheap.h
 
 C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/funzioni.h
 iostream
@@ -25,4 +27,14 @@ funzioni.h
 C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/funzioni.h
 es12.h
 C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/es12.h
+
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/minMAXheap.h
+vector
+-
+string.h
+-
+sstream
+-
+funzioni.h
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/funzioni.h
 
