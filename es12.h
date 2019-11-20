@@ -80,17 +80,11 @@ int es12selection(){
     MinHeap heapA;
     heapA.build(arrayOfNumbers);
     arrayOfNumbers = heapA.getVector();
-        // [prova]
-    cout<<arrayOfNumbers<<endl;
-    //int len = arrayOfNumbers.size();
-    //quickSelect(arrayOfNumbers,0,len-1,number-1);
-    //cout<<arrayOfNumbers<<endl;
-        // [/prova]
     DoubleMinHeap heapB;
     heapB.insert(arrayOfNumbers[0],0);
     valueIndex root;
 
-    for(int i=0; i<number-1; i++){
+    for(int i=1; i<number; i++){
         root = heapB.getRoot();
         int left = (root.index*2)+1;
         int right = (root.index*2)+2;

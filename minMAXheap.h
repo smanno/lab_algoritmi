@@ -21,6 +21,7 @@ using namespace std;
 
     /**
      * CLASS Heap
+     * has NO order
      */
 class Heap{
 protected:
@@ -29,7 +30,7 @@ protected:
     int left(int);
     int right(int);
 public:
-    void build();
+    //void build();
     void build(vector<int>);
     vector<int> getVector();
     string toString();          // prints the heap arrayNodes
@@ -38,35 +39,45 @@ public:
     int getRoot();              // returns the root without deleting it
 };
 
-void Heap::build() { arrayNodes; }
+//void Heap::build() { arrayNodes; }
 
+// modify a Heap with a new vector
 void Heap::build(vector<int> input) {
     arrayNodes = input;
 }
+
+// returns number of elements in Heap
 int Heap::length() { return arrayNodes.size(); }
 
+// true is no elements
 bool Heap::isEmpty() { return arrayNodes.size()==0; }
 
+// return parent of vector[index]
 int Heap::parent(int index)  { return (index - 1) / 2; }
 
+// return left child of vector[index]
 int Heap::left(int index) { return (2 * index) + 1; }
 
+// return right child of vector[index]
 int Heap::right(int index) { return (2 * index) + 2; }
 
+// return root of Heap
 int Heap::getRoot() {
     try {
         if(length()==0){
-            throw out_of_range("Vector<X>::at : ""index is out of range(Heap underflow)");
+            throw out_of_range("Vector<X>::at : "
+                               "index is out of range(Heap underflow) for Heap::getRoot");
         }
-        return arrayNodes.at(0);
+        return arrayNodes[0];
     }
     catch (const out_of_range oor){
         cout<<"\n"<<oor.what();
     }
 }
 
+// return string with the vector
 string Heap::toString(){
-    vector<int> arrayToPrint = arrayNodes;
+    vector<int> arrayToPrint = getVector();
     string result;
     while(!arrayToPrint.empty()){
         int numberToAdd = arrayToPrint.back();
@@ -80,6 +91,7 @@ string Heap::toString(){
     return result;
 }
 
+// return node vector
 vector<int> Heap::getVector() {
     vector<int> newVector(arrayNodes);
     return newVector;
@@ -93,58 +105,64 @@ vector<int> Heap::getVector() {
 class MaxHeap: public Heap{
 protected:
     void heapify();
-    void BubbleDown(int);
-    void BubbleUp(int);
+    void heapifyDown(int);
+    void heapifyUp(int);
 public:
     void build(vector<int>);
-    void insert(int);           // insert new number and BubbleDown
-    void extract();             // delete the root and BubbleDown
+    void insert(int);           // insert new number and heapifyUp
+    void extract();             // delete the root and heapifyDown
     void change(int,int);       // replace replace arrayNodes[index] with the chosen number
 };
 
+// modify and re-heapify a MaxHeap with a new vector
 void MaxHeap::build(vector<int> arrayOfNumbers) {
     arrayNodes = arrayOfNumbers;
     heapify();
 }
 
+// heapify all non-leaf nodes
 void MaxHeap::heapify() {
     for(int i=(arrayNodes.size()/2) -1; i>=0; --i){
-        BubbleDown(i);
+        heapifyDown(i);
     }
 }
 
-void MaxHeap::BubbleDown(int index) {
+// recursive heapify node[index] and its children
+void MaxHeap::heapifyDown(int index) {
     int largest = index;
-    int l = left(index);
-    int r = right(index);
-    if(l < length() && arrayNodes[l] > arrayNodes[largest]){
-        largest = l;
+    int lef = left(index);
+    int rig = right(index);
+    if(lef < length() && arrayNodes[lef] > arrayNodes[index]){
+        largest = lef;
     }
-    if(r < length() && arrayNodes[r] > arrayNodes[largest]){
-        largest = r;
+    if(rig < length() && arrayNodes[rig] > arrayNodes[largest]){
+        largest = rig;
     }
     if(largest != index){
         swap(arrayNodes[index],arrayNodes[largest]);
-        BubbleDown(largest);
+        heapifyDown(largest);
     }
 }
 
-void MaxHeap::BubbleUp(int index){
+// recursive heapify node[index] and parent
+void MaxHeap::heapifyUp(int index){
     if(index==0) return;
     if(index && arrayNodes[parent(index)]<arrayNodes[index]){
         swap(arrayNodes[index],arrayNodes[parent(index)]);
-        BubbleUp(parent(index));
+        heapifyUp(parent(index));
     }
 }
 
+// remove root element
 void MaxHeap::extract() {
     try {
         if(length()==0){
-            throw out_of_range("Vector<X>::at() : ""index is out of range(Heap underflow)");
+            throw out_of_range("Vector<X>::at() : "
+                               "index is out of range(Heap underflow) for MaxHeap::extract");
         }
         arrayNodes[0] = arrayNodes.back();
         arrayNodes.pop_back();
-        BubbleDown(0);
+        heapifyDown(0);
     }
     catch (const out_of_range& oor){
         cout<<"\n"<<oor.what();
@@ -153,23 +171,22 @@ void MaxHeap::extract() {
     int i = length()-1;
     swap( arrayNodes[0], arrayNodes[i]);
     arrayNodes.erase(arrayNodes.begin()+i);
-    BubbleDown(0);
+    heapifyDown(0);
      */
 }
 
+// switch heap[index] with number, the heapify
 void MaxHeap::change(int index, int newNumber) {
     arrayNodes[index] = newNumber;
-    BubbleDown(0);
-    /*
-    BubbleDown(index);
-    BubbleUp(index);
-     */
+    heapifyDown(index);
+    heapifyUp(index);
 }
 
+// insert number into the Heap
 void MaxHeap::insert(int number) {
     arrayNodes.push_back(number);
     int i = length()-1;
-    BubbleUp(i);
+    heapifyUp(i);
 }
 
     /**
@@ -179,22 +196,30 @@ void MaxHeap::insert(int number) {
      */
 class MinHeap: public Heap{
 protected:
+    void heapify();
     void heapifyDown(int);
     void heapifyUp(int);
 public:
     void build(vector<int>);
-    void insert(int);           // insert new number and BubbleDown
-    void extract();             // delete the root and BubbleDown
+    void insert(int);           // insert new number and heapifyUp
+    void extract();             // delete the root and heapifyDown
     void change(int,int);       // replace replace arrayNodes[index] with the chosen number
 };
 
+// modify and re-heapify a Heap with a new vector
 void MinHeap::build(vector<int> arrayOfNumbers) {
     arrayNodes = arrayOfNumbers;
-    for(int i=(arrayNodes.size()/2)-1; i>=0; --i){
+    heapify();
+}
+
+// heapify all non-leaf nodes
+void MinHeap::heapify() {
+    for(int i=(arrayNodes.size()/2) -1; i>=0; --i){
         heapifyDown(i);
     }
 }
 
+// recursive heapify node[index] and its children
 void MinHeap::heapifyDown(int index) {
     int smallest = index;
     int lef = left(index);
@@ -211,35 +236,38 @@ void MinHeap::heapifyDown(int index) {
     }
 }
 
+// recursive heapify node[index] and parent
 void MinHeap::heapifyUp(int index) {
-    if(index==0) return;
     if(index && arrayNodes[parent(index)]>arrayNodes[index]){
         swap(arrayNodes[index],arrayNodes[parent(index)]);
         heapifyUp(parent(index));
     }
 }
 
+// remove root element
 void MinHeap::extract() {
-    if(length()==0) return;
-    arrayNodes[0] = arrayNodes.back();
-    arrayNodes.pop_back();
-    /*
-    int i = length()-1;
-    swap( arrayNodes[0], arrayNodes[i]);
-    arrayNodes.erase(arrayNodes.begin()+i);
-     */
-    heapifyDown(0);
+    try {
+        if(arrayNodes.size()==0){
+            throw out_of_range("Vector<X>::at() : "
+                               "index is out of range(Heap underflow) for MinHeap::extract");
+        }
+        arrayNodes[0] = arrayNodes.back();
+        arrayNodes.pop_back();
+        heapifyDown(0);
+    }
+    catch (const out_of_range& oor){
+        cout<<"\n"<<oor.what();
+    }
 }
 
+// switch heap[index] with number, the heapify
 void MinHeap::change(int index, int newNumber) {
     arrayNodes[index] = newNumber;
-    heapifyDown(0);
-    /*
-    BubbleDown(index);
-    BubbleUp(index);
-     */
+    heapifyDown(index);
+    heapifyUp(index);
 }
 
+// insert number into the Heap
 void MinHeap::insert(int number) {
     arrayNodes.push_back(number);
     int i = length()-1;
@@ -259,34 +287,42 @@ struct valueIndex {
 class DoubleMinHeap: public Heap{
 protected:
     vector<valueIndex> arrayNodes;
+    void heapify();
     void heapifyDown(int);
     void heapifyUp(int);
 public:
     void build(vector<valueIndex>);
     valueIndex getRoot();
-    //vector<int> getVector();
-    void insert(int,int);           // insert new number and BubbleDown
-    void extract();                 // delete the root and BubbleDown
+    vector<int> getVector();
+    void extract();
+    void insert(int,int);
 };
 
+// modify and re-heapify a MaxHeap with a new vector
 void DoubleMinHeap::build(vector<valueIndex> input) {
     arrayNodes = input;
-    for(int i=(arrayNodes.size()/2)-1; i>=0; --i){
+    heapify();
+}
+
+// heapify all non-leaf nodes
+void DoubleMinHeap::heapify() {
+    for(int i=(arrayNodes.size()/2) -1; i>=0; --i){
         heapifyDown(i);
     }
 }
 
+// recursive heapify node[index] and its children
 void DoubleMinHeap::heapifyDown(int index) {
     int newIndex;
-    int l = left(index);
-    int r = right(index);
-    if(l < length() && arrayNodes[l].value < arrayNodes[index].value){
-        newIndex = l;
+    int lef = left(index);
+    int rig = right(index);
+    if(lef < length() && arrayNodes[lef].value < arrayNodes[index].value){
+        newIndex = lef;
     } else {
         newIndex = index;
     }
-    if(r < length() && arrayNodes[r].value < arrayNodes[newIndex].value){
-        newIndex = r;
+    if(rig < length() && arrayNodes[rig].value < arrayNodes[newIndex].value){
+        newIndex = rig;
     }
     if(newIndex != index){
         swap(arrayNodes[index],arrayNodes[newIndex]);
@@ -294,22 +330,24 @@ void DoubleMinHeap::heapifyDown(int index) {
     }
 }
 
+// recursive heapify node[index] and parent
 void DoubleMinHeap::heapifyUp(int index) {
-    if(index==0) return;
-    if(index>0 && arrayNodes[parent(index)].value>arrayNodes[index].value){
+    if(index && arrayNodes[parent(index)].value>arrayNodes[index].value){
         swap(arrayNodes[index],arrayNodes[parent(index)]);
         heapifyUp(parent(index));
     }
 }
-/*
+
+// return node vector
 vector<int> DoubleMinHeap::getVector(){
     vector<int> newVector;
-    for(int i=0; i<length(); i++){
-        newVector.push_back(arrayNodes[i-1].value);
+    for(int i=0; i<arrayNodes.size(); i++){
+        newVector.push_back(arrayNodes[i].value);
     }
     return newVector;
 }
-*/
+
+// insert number/index as a valueIndex into the Heap
 void DoubleMinHeap::insert(int number, int index) {
     valueIndex input;
     input.value = number;
@@ -319,16 +357,32 @@ void DoubleMinHeap::insert(int number, int index) {
     heapifyUp(i);
 }
 
+// remove root element
 void DoubleMinHeap::extract() {
-    if(length()==0) return;
-    arrayNodes[0] = arrayNodes.back();
-    arrayNodes.pop_back();
-    /*
-    int i = length()-1, j=0;
-    swap( arrayNodes[0], arrayNodes[i]);
-    arrayNodes.erase(arrayNodes.begin()+i);
-     */
-    heapifyDown(0);
+    try {
+        if(arrayNodes.size()==0){
+            throw out_of_range("Vector<X>::at() : "
+                               "index is out of range(Heap underflow) for MinHeap::extract");
+        }
+        arrayNodes[0] = arrayNodes.back();
+        arrayNodes.pop_back();
+        heapifyDown(0);
+    }
+    catch (const out_of_range& oor){
+        cout<<"\n"<<oor.what();
+    }
 }
 
-valueIndex DoubleMinHeap::getRoot() { return arrayNodes[0]; }
+// return root
+valueIndex DoubleMinHeap::getRoot() {
+    try {
+        if(arrayNodes.size()==0){
+            throw out_of_range("Vector<X>::at : "
+                               "index is out of range(Heap underflow) for DoubleMinHeap::getRoot");
+        }
+        return arrayNodes[0];
+    }
+    catch (const out_of_range oor){
+        cout<<"\n"<<oor.what();
+    }
+}
