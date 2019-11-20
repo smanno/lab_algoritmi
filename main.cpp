@@ -1,10 +1,10 @@
 #ifndef  iostream
 #include <iostream>
 #endif
-#ifndef string.h
+#ifndef string
 #include <string.h>
 #endif
-#ifndef funzioni.h
+#ifndef funzioni
 #include "funzioni.h"
 #endif
 //#include "es1.h"

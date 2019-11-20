@@ -43,7 +43,7 @@ fornito in input.
  * inziare a prendere le durate dei programmi usando il clock all'inizio e alla fine
  * però deve essere stoppato quando si prendono gli input
  */
-#ifndef minMAXheap.h
+#ifndef minMAXheap
 #include "minMAXheap.h"
 #endif
 
@@ -80,12 +80,12 @@ int es12selection(){
     MinHeap heapA;
     heapA.build(arrayOfNumbers);
     arrayOfNumbers = heapA.getVector();
-    // prova
+        // [prova]
     cout<<arrayOfNumbers<<endl;
     //int len = arrayOfNumbers.size();
     //quickSelect(arrayOfNumbers,0,len-1,number-1);
     //cout<<arrayOfNumbers<<endl;
-    // prova
+        // [/prova]
     DoubleMinHeap heapB;
     heapB.insert(arrayOfNumbers[0],0);
     valueIndex root;
@@ -95,8 +95,12 @@ int es12selection(){
         int left = (root.index*2)+1;
         int right = (root.index*2)+2;
         heapB.extract();
-        heapB.insert(arrayOfNumbers[left],left);
-        heapB.insert(arrayOfNumbers[right], right);
+        if(left<arrayOfNumbers.size()) {
+            heapB.insert(arrayOfNumbers[left], left);
+        }
+        if(right<arrayOfNumbers.size()) {
+            heapB.insert(arrayOfNumbers[right], right);
+        }
     }
 
     root = heapB.getRoot();
