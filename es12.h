@@ -82,9 +82,9 @@ int es12selection(){
     arrayOfNumbers = heapA.getVector();
     // prova
     cout<<arrayOfNumbers<<endl;
-    int len = arrayOfNumbers.size();
-    quickSelect(arrayOfNumbers,0,len-1,number-1);
-    cout<<arrayOfNumbers<<endl;
+    //int len = arrayOfNumbers.size();
+    //quickSelect(arrayOfNumbers,0,len-1,number-1);
+    //cout<<arrayOfNumbers<<endl;
     // prova
     DoubleMinHeap heapB;
     heapB.insert(arrayOfNumbers[0],0);
