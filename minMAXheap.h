@@ -316,12 +316,12 @@ void DoubleMinHeap::heapifyDown(int index) {
     int newIndex;
     int lef = left(index);
     int rig = right(index);
-    if(lef < length() && arrayNodes[lef].value < arrayNodes[index].value){
+    if(lef < arrayNodes.size() && arrayNodes[lef].value < arrayNodes[index].value){
         newIndex = lef;
     } else {
         newIndex = index;
     }
-    if(rig < length() && arrayNodes[rig].value < arrayNodes[newIndex].value){
+    if(rig < arrayNodes.size() && arrayNodes[rig].value < arrayNodes[newIndex].value){
         newIndex = rig;
     }
     if(newIndex != index){
@@ -348,10 +348,10 @@ vector<int> DoubleMinHeap::getVector(){
 }
 
 // insert number/index as a valueIndex into the Heap
-void DoubleMinHeap::insert(int number, int index) {
+void DoubleMinHeap::insert(int number, int pos) {
     valueIndex input;
     input.value = number;
-    input.index = index;
+    input.index = pos;
     arrayNodes.push_back(input);
     int i = arrayNodes.size()-1;
     heapifyUp(i);
