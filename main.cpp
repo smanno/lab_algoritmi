@@ -7,6 +7,9 @@
 #ifndef funzioni
 #include "funzioni.h"
 #endif
+#ifndef time
+#include <time.h>
+#endif
 //#include "es1.h"
 //#include "es2.h"
 //#include "es3.h"
@@ -22,6 +25,8 @@
 
 using namespace std;
 
+void calcoloRes();
+
 int main() {
     //es1helloWorld();
     //es2sumOfTwoIntegers();
@@ -34,6 +39,21 @@ int main() {
     //es9majority();
     //es10sort();
     //es11minHeap();
-    es12selection();
+    //es12selection();
+    calcoloRes();
     return 0;
+}
+
+void calcoloRes(){
+    for(int i=0; i<100; i++) {
+        clock_t tStart = clock();
+        clock_t tEnd;
+        do{
+            tEnd = clock();
+        } while (tStart==tEnd);
+
+        double elapsed = ((double)(tEnd-tStart))/CLOCKS_PER_SEC- ;
+        cout<<elapsed<<" ";
+    }
+    cout<<endl<<CLOCKS_PER_SEC;
 }
