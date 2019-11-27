@@ -175,11 +175,15 @@ void MaxHeap::extract() {
      */
 }
 
-// switch heap[index] with number, the heapify
+// switch heap[index] with number, then heapify
 void MaxHeap::change(int index, int newNumber) {
+    int oldNumber = arrayNodes[index];
     arrayNodes[index] = newNumber;
-    heapifyDown(index);
-    heapifyUp(index);
+    if(newNumber>oldNumber){
+        heapifyUp(index);
+    } else {
+        heapifyDown(index);
+    }
 }
 
 // insert number into the Heap
@@ -260,11 +264,15 @@ void MinHeap::extract() {
     }
 }
 
-// switch heap[index] with number, the heapify
+// switch heap[index] with number, then heapify
 void MinHeap::change(int index, int newNumber) {
+    int oldNumber = arrayNodes[index];
     arrayNodes[index] = newNumber;
-    heapifyDown(index);
-    heapifyUp(index);
+    if(newNumber<oldNumber){
+        heapifyUp(index);
+    } else {
+        heapifyDown(index);
+    }
 }
 
 // insert number into the Heap
@@ -291,12 +299,16 @@ protected:
     void heapifyDown(int);
     void heapifyUp(int);
 public:
+    int length();
     void build(vector<valueIndex>);
     valueIndex getRoot();
     vector<int> getVector();
     void extract();
     void insert(int,int);
 };
+
+// returns number of elements in Heap
+int DoubleMinHeap::length() { return arrayNodes.size(); }
 
 // modify and re-heapify a MaxHeap with a new vector
 void DoubleMinHeap::build(vector<valueIndex> input) {
@@ -306,7 +318,7 @@ void DoubleMinHeap::build(vector<valueIndex> input) {
 
 // heapify all non-leaf nodes
 void DoubleMinHeap::heapify() {
-    for(int i=(arrayNodes.size()/2) -1; i>=0; --i){
+    for(int i=(length()/2) -1; i>=0; --i){
         heapifyDown(i);
     }
 }
@@ -316,12 +328,12 @@ void DoubleMinHeap::heapifyDown(int index) {
     int newIndex;
     int lef = left(index);
     int rig = right(index);
-    if(lef < arrayNodes.size() && arrayNodes[lef].value < arrayNodes[index].value){
+    if(lef < length() && arrayNodes[lef].value < arrayNodes[index].value){
         newIndex = lef;
     } else {
         newIndex = index;
     }
-    if(rig < arrayNodes.size() && arrayNodes[rig].value < arrayNodes[newIndex].value){
+    if(rig < length() && arrayNodes[rig].value < arrayNodes[newIndex].value){
         newIndex = rig;
     }
     if(newIndex != index){
@@ -341,7 +353,7 @@ void DoubleMinHeap::heapifyUp(int index) {
 // return node vector
 vector<int> DoubleMinHeap::getVector(){
     vector<int> newVector;
-    for(int i=0; i<arrayNodes.size(); i++){
+    for(int i=0; i<length(); i++){
         newVector.push_back(arrayNodes[i].value);
     }
     return newVector;
@@ -353,14 +365,14 @@ void DoubleMinHeap::insert(int number, int pos) {
     input.value = number;
     input.index = pos;
     arrayNodes.push_back(input);
-    int i = arrayNodes.size()-1;
+    int i = length()-1;
     heapifyUp(i);
 }
 
 // remove root element
 void DoubleMinHeap::extract() {
     try {
-        if(arrayNodes.size()==0){
+        if(length()==0){
             throw out_of_range("Vector<X>::at() : "
                                "index is out of range(Heap underflow) for MinHeap::extract");
         }
@@ -376,7 +388,7 @@ void DoubleMinHeap::extract() {
 // return root
 valueIndex DoubleMinHeap::getRoot() {
     try {
-        if(arrayNodes.size()==0){
+        if(length()==0){
             throw out_of_range("Vector<X>::at : "
                                "index is out of range(Heap underflow) for DoubleMinHeap::getRoot");
         }
