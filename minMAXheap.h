@@ -11,11 +11,6 @@
 #ifndef sstream
 #include <sstream>
 #endif
-/*
-#ifndef funzioni.h
-#include "funzioni.h"
-#endif
-*/
 
 using namespace std;
 
@@ -30,16 +25,13 @@ protected:
     int left(int);
     int right(int);
 public:
-    //void build();
     void build(vector<int>);
     vector<int> getVector();
-    string toString();          // prints the heap arrayNodes
+    string toString();          // prints the heap structNodes
     int length();
     bool isEmpty();
     int getRoot();              // returns the root without deleting it
 };
-
-//void Heap::build() { arrayNodes; }
 
 // modify a Heap with a new vector
 void Heap::build(vector<int> input) {
@@ -111,7 +103,7 @@ public:
     void build(vector<int>);
     void insert(int);           // insert new number and heapifyUp
     void extract();             // delete the root and heapifyDown
-    void change(int,int);       // replace replace arrayNodes[index] with the chosen number
+    void change(int,int);       // replace replace structNodes[index] with the chosen number
 };
 
 // modify and re-heapify a MaxHeap with a new vector
@@ -167,12 +159,6 @@ void MaxHeap::extract() {
     catch (const out_of_range& oor){
         cout<<"\n"<<oor.what();
     }
-    /*
-    int i = length()-1;
-    swap( arrayNodes[0], arrayNodes[i]);
-    arrayNodes.erase(arrayNodes.begin()+i);
-    heapifyDown(0);
-     */
 }
 
 // switch heap[index] with number, then heapify
@@ -207,7 +193,7 @@ public:
     void build(vector<int>);
     void insert(int);           // insert new number and heapifyUp
     void extract();             // delete the root and heapifyDown
-    void change(int,int);       // replace replace arrayNodes[index] with the chosen number
+    void change(int,int);       // replace replace structNodes[index] with the chosen number
 };
 
 // modify and re-heapify a Heap with a new vector
@@ -294,7 +280,7 @@ struct valueIndex {
 
 class DoubleMinHeap: public Heap{
 protected:
-    vector<valueIndex> arrayNodes;
+    vector<valueIndex> structNodes;
     void heapify();
     void heapifyDown(int);
     void heapifyUp(int);
@@ -308,11 +294,11 @@ public:
 };
 
 // returns number of elements in Heap
-int DoubleMinHeap::length() { return arrayNodes.size(); }
+int DoubleMinHeap::length() { return structNodes.size(); }
 
 // modify and re-heapify a MaxHeap with a new vector
 void DoubleMinHeap::build(vector<valueIndex> input) {
-    arrayNodes = input;
+    structNodes = input;
     heapify();
 }
 
@@ -328,24 +314,24 @@ void DoubleMinHeap::heapifyDown(int index) {
     int newIndex;
     int lef = left(index);
     int rig = right(index);
-    if(lef < length() && arrayNodes[lef].value < arrayNodes[index].value){
+    if(lef < length() && structNodes[lef].value < structNodes[index].value){
         newIndex = lef;
     } else {
         newIndex = index;
     }
-    if(rig < length() && arrayNodes[rig].value < arrayNodes[newIndex].value){
+    if(rig < length() && structNodes[rig].value < structNodes[newIndex].value){
         newIndex = rig;
     }
     if(newIndex != index){
-        swap(arrayNodes[index],arrayNodes[newIndex]);
+        swap(structNodes[index], structNodes[newIndex]);
         heapifyDown(newIndex);
     }
 }
 
 // recursive heapify node[index] and parent
 void DoubleMinHeap::heapifyUp(int index) {
-    if(index && arrayNodes[parent(index)].value>arrayNodes[index].value){
-        swap(arrayNodes[index],arrayNodes[parent(index)]);
+    if(index && structNodes[parent(index)].value > structNodes[index].value){
+        swap(structNodes[index], structNodes[parent(index)]);
         heapifyUp(parent(index));
     }
 }
@@ -354,7 +340,7 @@ void DoubleMinHeap::heapifyUp(int index) {
 vector<int> DoubleMinHeap::getVector(){
     vector<int> newVector;
     for(int i=0; i<length(); i++){
-        newVector.push_back(arrayNodes[i].value);
+        newVector.push_back(structNodes[i].value);
     }
     return newVector;
 }
@@ -364,7 +350,7 @@ void DoubleMinHeap::insert(int number, int pos) {
     valueIndex input;
     input.value = number;
     input.index = pos;
-    arrayNodes.push_back(input);
+    structNodes.push_back(input);
     int i = length()-1;
     heapifyUp(i);
 }
@@ -376,8 +362,8 @@ void DoubleMinHeap::extract() {
             throw out_of_range("Vector<X>::at() : "
                                "index is out of range(Heap underflow) for MinHeap::extract");
         }
-        arrayNodes[0] = arrayNodes.back();
-        arrayNodes.pop_back();
+        structNodes[0] = structNodes.back();
+        structNodes.pop_back();
         heapifyDown(0);
     }
     catch (const out_of_range& oor){
@@ -392,7 +378,7 @@ valueIndex DoubleMinHeap::getRoot() {
             throw out_of_range("Vector<X>::at : "
                                "index is out of range(Heap underflow) for DoubleMinHeap::getRoot");
         }
-        return arrayNodes[0];
+        return structNodes[0];
     }
     catch (const out_of_range oor){
         cout<<"\n"<<oor.what();
