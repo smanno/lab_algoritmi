@@ -7,8 +7,15 @@
 #ifndef funzioni
 #include "funzioni.h"
 #endif
+/*
 #ifndef time
 #include <time.h>
+#endif*/
+#ifndef algorithm
+#include <algorithm>
+#endif
+#ifndef chrono
+#include <chrono>
 #endif
 //#include "es1.h"
 //#include "es2.h"
@@ -21,9 +28,10 @@
 //#include "es9.h"
 //#include "es10.h"
 //#include "es11.h"
-#include "es12.h"
+//#include "es12.h"
 
 using namespace std;
+using namespace std::chrono;
 
 void calcoloRes();
 
@@ -45,6 +53,31 @@ int main() {
 }
 
 void calcoloRes(){
+    vector<int> values(10000);
+    auto f = []() -> int { return rand()%10000; };
+    generate(values.begin(), values.end(), f);
+
+    //auto start = high_resolution_clock::now;
+    auto start = chrono::steady_clock::now();
+
+    //sort(values.begin(), values.end());
+
+    //auto stop = high_resolution_clock::now;
+    auto stop = chrono::steady_clock::now();
+
+    auto durationSec = duration_cast<seconds>(stop - start);
+    auto durationMilli = duration_cast<milliseconds>(stop - start);
+    auto durationMicro = duration_cast<microseconds>(stop - start);
+    auto durationNano = duration_cast<nanoseconds>(stop - start);
+
+    cout<<durationSec.count()<<" seconds"<<endl;
+    cout<<durationMilli.count()<<" milliseconds"<<endl;
+    cout<<durationMicro.count()<<" microseconds"<<endl;
+    cout<<durationNano.count()<<" nanoseconds"<<endl;
+}
+
+/**
+void calcoloRes(){
     for(int i=0; i<100; i++) {
         clock_t tStart = clock();
         clock_t tEnd;
@@ -52,8 +85,8 @@ void calcoloRes(){
             tEnd = clock();
         } while (tStart==tEnd);
 
-        double elapsed = ((double)(tEnd-tStart))/CLOCKS_PER_SEC- ;
+        double elapsed = ((double)(tEnd-tStart))/CLOCKS_PER_SEC;
         cout<<elapsed<<" ";
     }
     cout<<endl<<CLOCKS_PER_SEC;
-}
+}*/
