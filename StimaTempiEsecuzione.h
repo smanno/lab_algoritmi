@@ -4,6 +4,9 @@
 #ifndef  iostream
 #include <iostream>
 #endif
+#ifndef math
+#include <math.h>
+#endif
 #ifndef vector
 #include <vector>
 #endif
@@ -20,46 +23,42 @@
 using namespace std;
 using namespace std::chrono;
 
+const int DIMENSIONEMAX = 2; // inteso come 10^DIMENSIONEMAX, es 3 avrò vettori da 10, 100, 1000 elementi
+const int VETTORIPERDIMENSIONE = 5; // quanti vettori per ognuna delle categorie (10,100,1000...)
+const int TESTPERINDICE = 10; // quanti test effettuare per ogni singolo K
+
 vector<int> inizializzaVettore(int);
-vector<microseconds> testaAlgoritmo(vector<int>,int);
-microseconds calcolaTempoMedio(vector<microseconds>);
-vector<microseconds> calcolaDeviazione(vector<microseconds>,microseconds);
+vector<int> testaAlgoritmo(vector<int>,int);
+int calcolaMedia(vector<int>);
+vector<int> calcolaDeviazione(vector<int>,int);
+float calcolaDeviazioneStandard(vector<int>,int,int);
 
 void stimaTempi(){
-    /**
-     * ciclo(x->10-49)
-     *      vettoreCasuale[10^(i/10)]
-     *      parametro k casuale (k varia tra 0 e 10^(x/10)-1)
-     *      vettoreTempi[10]
-     *      vettoreDeviazione[10]
-     *      ciclo(y->0-9)
-     *          start
-     *          algortimo(vettoreCasuale, k)
-     *          stop
-     *          durata in vettoreTempi[y]
-     *      }
-     *      calcolo tempo medio di esecuzione
-     *      ciclo(z->0-9)
-     *          calcolo deviazione standard vettoreTempi[z] e tempo medio
-     *          deviazione in vettoreDevizione[z]
-     *      }
-     *      stampa  10^(i/10)
-     *              k
-     *              vettoreTempi[0]
-     *              vettoreDeviaizone[0]
-     *              vettoreTempi[1]
-     *              vettoreDeviaizone[1]
-     *              ...
-     * }
-     */
-    for(int i=10; i < 50; i++){
-        int N = 10^(int)(i / 10);          // per i=10-19 vettore[10], per i=20-29 vettore[100]...
-        vector<int> vettoreCasuale = inizializzaVettore(N);
-        int K = rand()%N;                  // K varia da 0 a N-1
-        vector<microseconds> vettoreTempi = testaAlgoritmo(vettoreCasuale,K);
-        microseconds tempoMedio = calcolaTempoMedio(vettoreTempi);
-        vector<microseconds> vettoreDeviazione = calcolaDeviazione(vettoreTempi, tempoMedio);
+    std::ofstream myfile;
+    myfile.open ("stimaTempi.csv");
+    for(int i=1;i<=DIMENSIONEMAX;i++){
+        for(int j=0;j<VETTORIPERDIMENSIONE;j++) {
+            myfile<<"vettore num "<<j;
+            int N = pow(10,i);
+            vector<int> vettoreCasuale = inizializzaVettore(N);
+            for(int K=0; K < N; K++) {
+                vector<int> vettoreTempi = testaAlgoritmo(vettoreCasuale, K);
+                int tempoMedio = calcolaMedia(vettoreTempi);
+                vector<int> vettoreDeviazione = calcolaDeviazione(vettoreTempi, tempoMedio);
+                myfile<<"\nN: "<<N<<";K: "<<K<<";";
+                for(int m=0;m<TESTPERINDICE;m++){
+                    myfile<<"T"<<m+1<<": "<<vettoreTempi[m]<<";";
+                }
+                myfile<<";V.medio: "<<tempoMedio<<"\n;;";
+                for(int n=0; n < TESTPERINDICE; n++){
+                    myfile<<"D"<<n+1<<": "<<vettoreDeviazione[n] << ";";
+                }
+                float deviazioneStandard = calcolaDeviazioneStandard(vettoreTempi, tempoMedio, N);
+                myfile<<";Dev.Standard: "<<deviazioneStandard<<"\n";
+            }
+        }
     }
+    myfile.close();
 }
 
 vector<int> inizializzaVettore(int N){
@@ -72,30 +71,44 @@ vector<int> inizializzaVettore(int N){
     return vettoreCasuale;
 }
 
-vector<microseconds> testaAlgoritmo(vector<int> vettoreCasuale, int K){
-    vector<microseconds> vettoreTempi;
-    for(int i=0;i<10;i++){
+vector<int> testaAlgoritmo(vector<int> vettoreCasuale, int K){
+    vector<int> vettoreTempi;
+    for(int i=0;i<TESTPERINDICE;i++){
         auto start = chrono::steady_clock::now();
-        sort(vettoreCasuale.begin(), vettoreCasuale.end()); // algoritmo(vettoreCasuale, K)
+        // scegliere quale funzione usare
+        quickSelect(vettoreCasuale,0,vettoreCasuale.size()-1,K);
+        // heapSelect
+        // medianSelect
         auto stop = chrono::steady_clock::now();
-        auto durationMicro = duration_cast<microseconds>(stop - start);
-        vettoreTempi.push_back(durationMicro);
+        auto durationNano = duration_cast<nanoseconds>(stop - start);
+        vettoreTempi.push_back(durationNano.count());
     }
     return vettoreTempi;
 }
 
-microseconds calcolaTempoMedio(vector<microseconds> vettoreTempi){
-    int measures = vettoreTempi.size();
-    microseconds total = total.zero();          // dichiaro e azzero la variabile
-    while(!vettoreTempi.empty()){
-        total = total + vettoreTempi.back();
-        vettoreTempi.pop_back();
+int calcolaMedia(vector<int> vettore){
+    int measures = vettore.size(), total = 0;
+    while(!vettore.empty()){
+        total = total + vettore.back();
+        vettore.pop_back();
     }
     return total/measures;
 }
 
-vector<microseconds> calcolaDeviazione(vector<microseconds> vettoreTempi,microseconds tempoMedio){
-    vector<microseconds> vettoreDeviazione;
-
+vector<int> calcolaDeviazione(vector<int> vettoreTempi,int tempoMedio){
+    vector<int> vettoreDeviazione;
+    for(int i=0; i<vettoreTempi.size(); i++){
+        int deviazione = abs(vettoreTempi[i]-tempoMedio);
+        vettoreDeviazione.push_back(deviazione);
+    }
     return vettoreDeviazione;
+}
+
+float calcolaDeviazioneStandard(vector<int> vettoreTempi,int tempoMedio,int N){
+    float a=0, b=0;
+    a=1.0/(N-1);
+    for(int i=0;i<N;i++) {
+        b = b + pow((vettoreTempi[i] - tempoMedio), 2);
+    }
+    return sqrt(a*b);
 }
