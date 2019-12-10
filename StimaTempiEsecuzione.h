@@ -16,12 +16,7 @@
 #ifndef stdlib
 #include <stdlib.h>
 #endif
-/*
-#ifndef LABORATORIO_STIMATEMPIESECUZIONE_H
-#define LABORATORIO_STIMATEMPIESECUZIONE_H
 
-#endif //LABORATORIO_STIMATEMPIESECUZIONE_H
-*/
 using namespace std;
 using namespace std::chrono;
 
@@ -58,10 +53,9 @@ void stimaTempi(){
      * }
      */
     for(int i=10; i < 50; i++){
-        // inizializzazione
         int N = 10^(int)(i / 10);          // per i=10-19 vettore[10], per i=20-29 vettore[100]...
         vector<int> vettoreCasuale = inizializzaVettore(N);
-        int K = rand()%N;
+        int K = rand()%N;                  // K varia da 0 a N-1
         vector<microseconds> vettoreTempi = testaAlgoritmo(vettoreCasuale,K);
         microseconds tempoMedio = calcolaTempoMedio(vettoreTempi);
         vector<microseconds> vettoreDeviazione = calcolaDeviazione(vettoreTempi, tempoMedio);
@@ -71,11 +65,8 @@ void stimaTempi(){
 vector<int> inizializzaVettore(int N){
     vector<int> vettoreCasuale;
     for(int i=0; i < N; i++){
-        int temp = rand()%N;
-        int temp2 = rand()%100;
-        if(temp2<40){
-            temp=-1*temp;
-        }
+        int temp = rand()%((N+1)*10);           // genero un valore da 0 a N*10 compresi
+        if(rand()<0.4){ temp=-1*temp; }         // 40% dei valori sarà negativo
         vettoreCasuale.push_back(temp);
     }
     return vettoreCasuale;
@@ -95,7 +86,7 @@ vector<microseconds> testaAlgoritmo(vector<int> vettoreCasuale, int K){
 
 microseconds calcolaTempoMedio(vector<microseconds> vettoreTempi){
     int measures = vettoreTempi.size();
-    microseconds total;
+    microseconds total = total.zero();          // dichiaro e azzero la variabile
     while(!vettoreTempi.empty()){
         total = total + vettoreTempi.back();
         vettoreTempi.pop_back();
@@ -105,5 +96,6 @@ microseconds calcolaTempoMedio(vector<microseconds> vettoreTempi){
 
 vector<microseconds> calcolaDeviazione(vector<microseconds> vettoreTempi,microseconds tempoMedio){
     vector<microseconds> vettoreDeviazione;
+
     return vettoreDeviazione;
 }
