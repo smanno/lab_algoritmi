@@ -46,12 +46,18 @@ void stimaTempi(){
         for(int j=0;j<VETTORIPERDIMENSIONE;j++) {
             myfile<<"vettore num "<<j;
             int N = pow(10,i);
+                /** crea un vettore con N numeri random() */
             vector<int> vettoreCasuale = inizializzaVettore(N);
             for(int K=0; K < N; K++) {
+                    /** crea un vettore con i tempi impiegati nei test */
                 vector<int> vettoreTempi = testaAlgoritmo(vettoreCasuale, K);
+                    /** calcola il tempo medio */
                 int tempoMedio = calcolaMedia(vettoreTempi);
+                    /** calcola la deviazione per ogni tempo */
                 vector<int> vettoreDeviazione = calcolaDeviazione(vettoreTempi, tempoMedio);
+                    /** calcola la deviazione standard */
                 float deviazioneStandard = calcolaDeviazioneStandard(vettoreTempi, tempoMedio, N);
+                    /** stampa i dati sul file csv */
                 stampaTest(myfile,N,K,tempoMedio,deviazioneStandard,vettoreTempi,vettoreDeviazione);
             }
         }
@@ -122,7 +128,7 @@ void stampaTest(ofstream &myfile,int N,int K,int tempoMedio, float deviazioneSta
         myfile<<"T"<<m+1<<": "<<vettoreTempi[m]<<";";
     }
     myfile<<";V.medio: "<<tempoMedio<<"\n;;";
-    for(int n=0; n < TESTPERINDICE; n++){
+    for(int n=0;n<TESTPERINDICE;n++){
         myfile<<"D"<<n+1<<": "<<vettoreDeviazione[n] << ";";
     }
     myfile<<";Dev.Standard: "<<deviazioneStandard<<"\n";
