@@ -23,15 +23,21 @@
 using namespace std;
 using namespace std::chrono;
 
+    /** modificare le costanti a seconda delle esigenze */
 const int DIMENSIONEMAX = 2; // inteso come 10^DIMENSIONEMAX, es 3 avrò vettori da 10, 100, 1000 elementi
 const int VETTORIPERDIMENSIONE = 5; // quanti vettori per ognuna delle categorie (10,100,1000...)
 const int TESTPERINDICE = 10; // quanti test effettuare per ogni singolo K
+    /** scegliere quale unità di tempo usare */
+//typedef std::chrono::milliseconds unitaTempo;
+//typedef std::chrono::microseconds unitaTempo;
+typedef std::chrono::nanoseconds unitaTempo;
 
 vector<int> inizializzaVettore(int);
 vector<int> testaAlgoritmo(vector<int>,int);
 int calcolaMedia(vector<int>);
 vector<int> calcolaDeviazione(vector<int>,int);
 float calcolaDeviazioneStandard(vector<int>,int,int);
+void stampaTest(ofstream&,int,int,int,float,vector<int>,vector<int>);
 
 void stimaTempi(){
     std::ofstream myfile;
@@ -45,16 +51,8 @@ void stimaTempi(){
                 vector<int> vettoreTempi = testaAlgoritmo(vettoreCasuale, K);
                 int tempoMedio = calcolaMedia(vettoreTempi);
                 vector<int> vettoreDeviazione = calcolaDeviazione(vettoreTempi, tempoMedio);
-                myfile<<"\nN: "<<N<<";K: "<<K<<";";
-                for(int m=0;m<TESTPERINDICE;m++){
-                    myfile<<"T"<<m+1<<": "<<vettoreTempi[m]<<";";
-                }
-                myfile<<";V.medio: "<<tempoMedio<<"\n;;";
-                for(int n=0; n < TESTPERINDICE; n++){
-                    myfile<<"D"<<n+1<<": "<<vettoreDeviazione[n] << ";";
-                }
                 float deviazioneStandard = calcolaDeviazioneStandard(vettoreTempi, tempoMedio, N);
-                myfile<<";Dev.Standard: "<<deviazioneStandard<<"\n";
+                stampaTest(myfile,N,K,tempoMedio,deviazioneStandard,vettoreTempi,vettoreDeviazione);
             }
         }
     }
@@ -71,16 +69,21 @@ vector<int> inizializzaVettore(int N){
     return vettoreCasuale;
 }
 
-vector<int> testaAlgoritmo(vector<int> vettoreCasuale, int K){
+vector<int> testaAlgoritmo(vector<int> vettore, int K){
     vector<int> vettoreTempi;
     for(int i=0;i<TESTPERINDICE;i++){
+        vector<int> vettoreCasuale = vettore;
         auto start = chrono::steady_clock::now();
-        // scegliere quale funzione usare
+
+            /** scegliere quale funzione testare */
+        //sort(vettoreCasuale.begin(), vettoreCasuale.end());
         quickSelect(vettoreCasuale,0,vettoreCasuale.size()-1,K);
         // heapSelect
         // medianSelect
+
         auto stop = chrono::steady_clock::now();
-        auto durationNano = duration_cast<nanoseconds>(stop - start);
+        duration<float> period = stop-start;
+        auto durationNano = duration_cast<unitaTempo>(period);
         vettoreTempi.push_back(durationNano.count());
     }
     return vettoreTempi;
@@ -111,4 +114,16 @@ float calcolaDeviazioneStandard(vector<int> vettoreTempi,int tempoMedio,int N){
         b = b + pow((vettoreTempi[i] - tempoMedio), 2);
     }
     return sqrt(a*b);
+}
+
+void stampaTest(ofstream &myfile,int N,int K,int tempoMedio, float deviazioneStandard,vector<int> vettoreTempi,vector<int> vettoreDeviazione){
+    myfile<<"\nN: "<<N<<";K: "<<K<<";";
+    for(int m=0;m<TESTPERINDICE;m++){
+        myfile<<"T"<<m+1<<": "<<vettoreTempi[m]<<";";
+    }
+    myfile<<";V.medio: "<<tempoMedio<<"\n;;";
+    for(int n=0; n < TESTPERINDICE; n++){
+        myfile<<"D"<<n+1<<": "<<vettoreDeviazione[n] << ";";
+    }
+    myfile<<";Dev.Standard: "<<deviazioneStandard<<"\n";
 }
