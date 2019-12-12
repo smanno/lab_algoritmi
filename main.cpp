@@ -62,7 +62,7 @@ void calcoloRes(){
 
     auto start = chrono::steady_clock::now();
 
-    //sort(values.begin(), values.end());
+    sort(values.begin(), values.end());
 
     auto stop = chrono::steady_clock::now();
 

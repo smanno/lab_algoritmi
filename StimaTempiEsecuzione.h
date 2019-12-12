@@ -79,6 +79,7 @@ vector<int> testaAlgoritmo(vector<int> vettore, int K){
     vector<int> vettoreTempi;
     for(int i=0;i<TESTPERINDICE;i++){
         vector<int> vettoreCasuale = vettore;
+        
         auto start = chrono::steady_clock::now();
 
             /** scegliere quale funzione testare */
