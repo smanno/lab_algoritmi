@@ -26,7 +26,7 @@ using namespace std::chrono;
     /** modificare le costanti a seconda delle esigenze */
 const int DIMENSIONEMAX = 2; // inteso come 10^DIMENSIONEMAX, es 3 avrò vettori da 10, 100, 1000 elementi
 const int VETTORIPERDIMENSIONE = 5; // quanti vettori per ognuna delle categorie (10,100,1000...)
-const int TESTPERINDICE = 10; // quanti test effettuare per ogni singolo K
+const int TESTPERINDICE = 5; // quanti test effettuare per ogni singolo K
     /** scegliere quale unità di tempo usare */
 //typedef std::chrono::milliseconds unitaTempo;
 //typedef std::chrono::microseconds unitaTempo;
@@ -79,6 +79,7 @@ vector<int> testaAlgoritmo(vector<int> vettore, int K){
     vector<int> vettoreTempi;
     for(int i=0;i<TESTPERINDICE;i++){
         vector<int> vettoreCasuale = vettore;
+        //vector<int> vettoreCasuale = vettore;
         
         auto start = chrono::steady_clock::now();
 

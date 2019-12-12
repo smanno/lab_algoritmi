@@ -6,6 +6,24 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/StimaTempiEsecuzione.h
+iostream
+-
+math.h
+-
+vector
+-
+algorithm
+-
+chrono
+-
+stdlib.h
+-
+
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/es12.h
+minMAXheap.h
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/minMAXheap.h
+
 C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/funzioni.h
 iostream
 -
@@ -17,14 +35,26 @@ vector
 C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/main.cpp
 iostream
 -
+fstream
+-
 string.h
 -
 funzioni.h
 C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/funzioni.h
-time.h
--
 algorithm
 -
 chrono
+-
+es12.h
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/es12.h
+StimaTempiEsecuzione.h
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/StimaTempiEsecuzione.h
+
+C:/Users/stefano/Dropbox/INFORMATICA/2 anno/Algoritmi e Strutture Dati/Laboratorio/minMAXheap.h
+vector
+-
+string.h
+-
+sstream
 -
 
