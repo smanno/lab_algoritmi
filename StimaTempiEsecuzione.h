@@ -122,7 +122,7 @@ float calcolaDeviazioneStandard(vector<int> vettoreTempi,int tempoMedio,int N){
     return sqrt(a*b);
 }
 
-void stampaTest(ofstream &myfile,int N,int K,int tempoMedio, float deviazioneStandard,vector<int> vettoreTempi,vector<int> vettoreDeviazione){
+void stampaTest(ofstream &myfile,int N,int K,int tempoMedio,float deviazioneStandard,vector<int> vettoreTempi,vector<int> vettoreDeviazione){
     myfile<<"\nN: "<<N<<";K: "<<K<<";";
     for(int m=0;m<TESTPERINDICE;m++){
         myfile<<"T"<<m+1<<": "<<vettoreTempi[m]<<";";

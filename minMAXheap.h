@@ -64,6 +64,7 @@ int Heap::getRoot() {
     }
     catch (const out_of_range oor){
         cout<<"\n"<<oor.what();
+        return -1;
     }
 }
 
@@ -382,5 +383,6 @@ valueIndex DoubleMinHeap::getRoot() {
     }
     catch (const out_of_range oor){
         cout<<"\n"<<oor.what();
+        return {-1,-1};
     }
 }
