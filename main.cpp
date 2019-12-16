@@ -28,10 +28,9 @@
 //#include "es10.h"
 //#include "es11.h"
 #include "es12.h"
-#include "StimaTempiEsecuzione.h"
+#include "StimaTempiOld.h"
 
 using namespace std;
-using namespace std::chrono;
 
 void calcoloRes();
 double getDuration(steady_clock::time_point,steady_clock::time_point);
@@ -50,7 +49,7 @@ int main() {
     //es11minHeap();
     //es12selection();
     calcoloRes();
-    stimaTempi();
+    stimaTempiOld();
     return 0;
 }
 

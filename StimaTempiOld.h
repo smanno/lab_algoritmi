@@ -39,9 +39,9 @@ vector<int> calcolaDeviazione(vector<int>,int);
 float calcolaDeviazioneStandard(vector<int>,int,int);
 void stampaTest(ofstream&,int,int,int,float,vector<int>,vector<int>);
 
-void stimaTempi(){
+void stimaTempiOld(){
     std::ofstream myfile;
-    myfile.open ("stimaTempi.csv");
+    myfile.open ("stimaTempiOld.csv");
     for(int i=1;i<=DIMENSIONEMAX;i++){
         for(int j=0;j<VETTORIPERDIMENSIONE;j++) {
             myfile<<"vettore num "<<j;
@@ -79,8 +79,7 @@ vector<int> testaAlgoritmo(vector<int> vettore, int K){
     vector<int> vettoreTempi;
     for(int i=0;i<TESTPERINDICE;i++){
         vector<int> vettoreCasuale = vettore;
-        //vector<int> vettoreCasuale = vettore;
-        
+        //auto start = chrono::steady_clock::now();
         steady_clock::time_point start = /**chrono::*/steady_clock::now();
 
             /** scegliere quale funzione testare */
