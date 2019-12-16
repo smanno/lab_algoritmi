@@ -81,7 +81,7 @@ vector<int> testaAlgoritmo(vector<int> vettore, int K){
         vector<int> vettoreCasuale = vettore;
         //vector<int> vettoreCasuale = vettore;
         
-        auto start = chrono::steady_clock::now();
+        steady_clock::time_point start = /**chrono::*/steady_clock::now();
 
             /** scegliere quale funzione testare */
         //sort(vettoreCasuale.begin(), vettoreCasuale.end());
@@ -125,7 +125,7 @@ float calcolaDeviazioneStandard(vector<int> vettoreTempi,int tempoMedio,int N){
 }
 
 void stampaTest(ofstream &myfile,int N,int K,int tempoMedio,float deviazioneStandard,vector<int> vettoreTempi,vector<int> vettoreDeviazione){
-    myfile<<"\nN: "<<N<<";K: "<<K<<";";
+    myfile<<"\nN: "<<N<<";K: "<<K+1<<";";
     for(int m=0;m<TESTPERINDICE;m++){
         myfile<<"T"<<m+1<<": "<<vettoreTempi[m]<<";";
     }

@@ -34,7 +34,7 @@ using namespace std;
 using namespace std::chrono;
 
 void calcoloRes();
-void stampaCSV();
+double getDuration(steady_clock::time_point,steady_clock::time_point);
 
 int main() {
     //es1helloWorld();
@@ -49,49 +49,19 @@ int main() {
     //es10sort();
     //es11minHeap();
     //es12selection();
-    //calcoloRes();
-    //stampaCSV();
+    calcoloRes();
     stimaTempi();
     return 0;
 }
 
-void calcoloRes(){
-    vector<int> values(10000);
-    auto f = []() -> int { return rand()%10000; };
-    generate(values.begin(), values.end(), f);
-
-    auto start = chrono::steady_clock::now();
-
-    sort(values.begin(), values.end());
-
-    auto stop = chrono::steady_clock::now();
-
-    auto durationSec = duration_cast<seconds>(stop - start);
-    auto durationMilli = duration_cast<milliseconds>(stop - start);
-    auto durationMicro = duration_cast<microseconds>(stop - start);
-    auto durationNano = duration_cast<nanoseconds>(stop - start);
-
-    cout<<durationSec.count()<<" seconds"<<endl;
-    cout<<durationMilli.count()<<" milliseconds"<<endl;
-    cout<<durationMicro.count()<<" microseconds"<<endl;
-    cout<<durationNano.count()<<" nanoseconds"<<endl;
+double getDuration(steady_clock::time_point start, steady_clock::time_point end){
+    typedef duration<double, nanoseconds::period> nanosecs;
+    return duration_cast<nanosecs>(end-start).count();
 }
 
-void stampaCSV(){
-    int a=1,b=2,c=3;
-    /*
-    CSVWriter writer("example.csv");
-    int arr [] = {3,4,1};
-    writer.addDatainRow(arr , arr + sizeof(arr) / sizeof(int));*/
-    std::ofstream myfile;
-    myfile.open ("example.csv");
-    myfile << "This is the first cell in the first column.\n";
-    myfile << "a,b,c,\n";
-    myfile << a<<";";
-    myfile << b<<";";
-    myfile << c<<"\n";
-    myfile << ";;"<<c<<"\n";
-    myfile << "1,2,3.456\n";
-    myfile << "semi;colon";
-    myfile.close();
+void calcoloRes(){
+    steady_clock::time_point start = steady_clock::now();
+    steady_clock::time_point end;
+    do{ end = steady_clock::now(); } while (start==end);
+    cout<<getDuration(start,end);
 }
