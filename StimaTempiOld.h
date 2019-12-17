@@ -39,6 +39,15 @@ vector<int> calcolaDeviazione(vector<int>,int);
 float calcolaDeviazioneStandard(vector<int>,int,int);
 void stampaTest(ofstream&,int,int,int,float,vector<int>,vector<int>);
 
+//finding median of the ungrouped data in the array
+int findMedian(vector<int> vect){
+    //sort the array
+    sort(vect.begin(), vect.end());
+    if(vect.size() % 2 == 0)
+        return (vect[vect.size()/2 - 1] + vect[vect.size()/2])/2;
+    return vect[vect.size()/2];
+}
+
 void stimaTempiOld(){
     std::ofstream myfile;
     myfile.open ("stimaTempiOld.csv");
