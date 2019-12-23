@@ -4,11 +4,8 @@
 #ifndef vector
 #include <vector>
 #endif
-#ifndef funzioni
-#include "funzioni.h"
-#endif
-#ifndef minMAXheap
-#include "minMAXheap.h"
+#ifndef Heap
+#include "Heap.h"
 #endif
 
 using namespace std;
@@ -61,3 +58,5 @@ int heapSelect(vector<int> arrayOfNumbers, int number){
 
     return 0;
 }
+
+    /** MEDIAN-OF-MEDIANS SELECT */

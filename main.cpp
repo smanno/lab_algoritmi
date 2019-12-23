@@ -4,18 +4,13 @@
 #ifndef fstream
 #include <fstream>
 #endif
-#ifndef string
-#include <string.h>
-#endif
-#ifndef funzioni
-#include "funzioni.h"
-#endif
 #ifndef algorithm
 #include <algorithm>
 #endif
 #ifndef chrono
 #include <chrono>
 #endif
+
 //#include "es1.h"
 //#include "es2.h"
 //#include "es3.h"

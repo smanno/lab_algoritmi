@@ -1,6 +1,12 @@
-/**
- * Class Heap: build either a min-Heap or a MAX-Heap
- */
+//
+// Created by stefano on 23/12/2019.
+//
+/*
+#ifndef LABORATORIO_HEAP_H
+#define LABORATORIO_HEAP_H
+
+#endif //LABORATORIO_HEAP_H
+*/
 #ifndef vector
 #include <vector>
 #endif
@@ -10,38 +16,21 @@
 #ifndef sstream
 #include <sstream>
 #endif
+#ifndef funzioni
+#include "funzioni.h"
+#endif
 
 using namespace std;
 
-    /**
-     * CLASS Heap
-     * has NO order
-     */
+/**
+ * For both single and double heaps to get parent/left/right
+ */
 class Heap{
 protected:
-    vector<int> arrayNodes;
     int parent(int);
     int left(int);
     int right(int);
-public:
-    void build(vector<int>);
-    vector<int> getVector();
-    string toString();          // prints the heap structNodes
-    int length();
-    bool isEmpty();
-    int getRoot();              // returns the root without deleting it
 };
-
-// modify a Heap with a new vector
-void Heap::build(vector<int> input) {
-    arrayNodes = input;
-}
-
-// returns number of elements in Heap
-int Heap::length() { return arrayNodes.size(); }
-
-// true is no elements
-bool Heap::isEmpty() { return arrayNodes.size()==0; }
 
 // return parent of vector[index]
 int Heap::parent(int index)  { return (index - 1) / 2; }
@@ -52,12 +41,39 @@ int Heap::left(int index) { return (2 * index) + 1; }
 // return right child of vector[index]
 int Heap::right(int index) { return (2 * index) + 2; }
 
-// return root of Heap
-int Heap::getRoot() {
+/**
+ * CLASS SingleHeap
+ * has NO order
+ */
+class SingleHeap: public Heap{
+protected:
+    vector<int> arrayNodes;
+public:
+    void build(vector<int>);
+    vector<int> getVector();
+    string toString();          // prints the heap structNodes
+    int length();
+    bool isEmpty();
+    int getRoot();              // returns the root without deleting it
+};
+
+// modify a SingleHeap with a new vector
+void SingleHeap::build(vector<int> input) {
+    arrayNodes = input;
+}
+
+// returns number of elements in SingleHeap
+int SingleHeap::length() { return arrayNodes.size(); }
+
+// true is no elements
+bool SingleHeap::isEmpty() { return arrayNodes.size() == 0; }
+
+// return root of SingleHeap
+int SingleHeap::getRoot() {
     try {
         if(length()==0){
             throw out_of_range("Vector<X>::at : "
-                               "index is out of range(Heap underflow) for Heap::getRoot");
+                               "index is out of range(Heap underflow) for SingleHeap::getRoot");
         }
         return arrayNodes[0];
     }
@@ -68,7 +84,7 @@ int Heap::getRoot() {
 }
 
 // return string with the vector
-string Heap::toString(){
+string SingleHeap::toString(){
     vector<int> arrayToPrint = getVector();
     string result;
     while(!arrayToPrint.empty()){
@@ -84,17 +100,17 @@ string Heap::toString(){
 }
 
 // return node vector
-vector<int> Heap::getVector() {
+vector<int> SingleHeap::getVector() {
     vector<int> newVector(arrayNodes);
     return newVector;
 }
 
-    /**
-     * CLASS MaxHeap
-     * every node has a value lower than his parent
-     * every node has a value greater than his children
-     */
-class MaxHeap: public Heap{
+/**
+ * CLASS MaxHeap
+ * every node has a value lower than his parent
+ * every node has a value greater than his children
+ */
+class MaxHeap: public SingleHeap{
 protected:
     void heapify();
     void heapifyDown(int);
@@ -172,19 +188,19 @@ void MaxHeap::change(int index, int newNumber) {
     }
 }
 
-// insert number into the Heap
+// insert number into the SingleHeap
 void MaxHeap::insert(int number) {
     arrayNodes.push_back(number);
     int i = length()-1;
     heapifyUp(i);
 }
 
-    /**
-     * CLASS MinHeap
-     * every node has a value greater than his parent
-     * every node has a value lower than his children
-     */
-class MinHeap: public Heap{
+/**
+ * CLASS MinHeap
+ * every node has a value greater than his parent
+ * every node has a value lower than his children
+ */
+class MinHeap: public SingleHeap{
 protected:
     void heapify();
     void heapifyDown(int);
@@ -196,7 +212,7 @@ public:
     void change(int,int);       // replace replace structNodes[index] with the chosen number
 };
 
-// modify and re-heapify a Heap with a new vector
+// modify and re-heapify a SingleHeap with a new vector
 void MinHeap::build(vector<int> arrayOfNumbers) {
     arrayNodes = arrayOfNumbers;
     heapify();
@@ -261,40 +277,126 @@ void MinHeap::change(int index, int newNumber) {
     }
 }
 
-// insert number into the Heap
+// insert number into the SingleHeap
 void MinHeap::insert(int number) {
     arrayNodes.push_back(number);
     int i = length()-1;
     heapifyUp(i);
 }
 
-        /**
-         * CLASS DoubleMinHeap
-         * every node has a value greater than his parent
-         * every node has a value lower than his children
-         */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 struct valueIndex {
     int value;
     int index;
 };
 
-class DoubleMinHeap: public Heap{
+/**
+ * CLASS DoubleHeap
+ * has NO order
+ */
+class DoubleHeap: public Heap{
 protected:
     vector<valueIndex> structNodes;
+public:
+    void build(vector<valueIndex>);
+    vector<int> getVector();
+    string toString();          // prints the heap structNodes
+    int length();
+    bool isEmpty();
+    valueIndex getRoot();              // returns the root without deleting it
+};
+
+// modify a SingleHeap with a new vector
+void DoubleHeap::build(vector<valueIndex> input) {
+    structNodes = input;
+}
+
+// returns number of elements in SingleHeap
+int DoubleHeap::length() { return structNodes.size(); }
+
+// true is no elements
+bool DoubleHeap::isEmpty() { return structNodes.size() == 0; }
+
+// return root
+valueIndex DoubleHeap::getRoot() {
+    try {
+        if(length()==0){
+            throw out_of_range("Vector<X>::at : "
+                               "index is out of range(Heap underflow) for DoubleMinHeap::getRoot");
+        }
+        return structNodes[0];
+    }
+    catch (const out_of_range oor){
+        cout<<"\n"<<oor.what();
+        return {-1,-1};
+    }
+}
+
+// return string with the vector
+string DoubleHeap::toString(){
+    vector<int> arrayToPrint = getVector();
+    string result;
+    while(!arrayToPrint.empty()){
+        int numberToAdd = arrayToPrint.back();
+        stringstream ss;
+        ss<<numberToAdd;
+        string s;
+        ss>>s;
+        result = s + " " + result;
+        arrayToPrint.pop_back();
+    }
+    return result;
+}
+
+// return node vector
+vector<int> DoubleHeap::getVector(){
+    vector<int> newVector;
+    for(int i=0; i<length(); i++){
+        newVector.push_back(structNodes[i].value);
+    }
+    return newVector;
+}
+
+/**
+ * CLASS DoubleMinHeap
+ * every node has a value greater than his parent
+ * every node has a value lower than his children
+ */
+
+
+class DoubleMinHeap: public DoubleHeap{
+protected:
     void heapify();
     void heapifyDown(int);
     void heapifyUp(int);
 public:
-    int length();
     void build(vector<valueIndex>);
-    valueIndex getRoot();
-    vector<int> getVector();
     void extract();
     void insert(int,int);
 };
-
-// returns number of elements in Heap
-int DoubleMinHeap::length() { return structNodes.size(); }
 
 // modify and re-heapify a MaxHeap with a new vector
 void DoubleMinHeap::build(vector<valueIndex> input) {
@@ -336,16 +438,7 @@ void DoubleMinHeap::heapifyUp(int index) {
     }
 }
 
-// return node vector
-vector<int> DoubleMinHeap::getVector(){
-    vector<int> newVector;
-    for(int i=0; i<length(); i++){
-        newVector.push_back(structNodes[i].value);
-    }
-    return newVector;
-}
-
-// insert number/index as a valueIndex into the Heap
+// insert number/index as a valueIndex into the SingleHeap
 void DoubleMinHeap::insert(int number, int pos) {
     valueIndex input;
     input.value = number;
@@ -368,20 +461,5 @@ void DoubleMinHeap::extract() {
     }
     catch (const out_of_range& oor){
         cout<<"\n"<<oor.what();
-    }
-}
-
-// return root
-valueIndex DoubleMinHeap::getRoot() {
-    try {
-        if(length()==0){
-            throw out_of_range("Vector<X>::at : "
-                               "index is out of range(Heap underflow) for DoubleMinHeap::getRoot");
-        }
-        return structNodes[0];
-    }
-    catch (const out_of_range oor){
-        cout<<"\n"<<oor.what();
-        return {-1,-1};
     }
 }
