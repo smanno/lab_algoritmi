@@ -94,7 +94,7 @@ vector<int> testaAlgoritmo(vector<int> vettore, int K){
             /** scegliere quale funzione testare */
         //sort(vettoreCasuale.begin(), vettoreCasuale.end());
         quickSelect(vettoreCasuale,0,vettoreCasuale.size()-1,K);
-        // heapSelect
+        //heapSelect(vettoreCasuale, K);
         // medianSelect
 
         auto stop = chrono::steady_clock::now();

@@ -27,7 +27,8 @@
 //#include "es9.h"
 //#include "es10.h"
 //#include "es11.h"
-#include "es12.h"
+//#include "es12.h"
+#include "AlgoritmiSelezione.cpp"
 #include "StimaTempiOld.h"
 
 using namespace std;
