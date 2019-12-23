@@ -2,8 +2,7 @@
 // Created by stefano on 23/12/2019.
 //
 
-#ifndef LABORATORIO_HEAP_H
-#define LABORATORIO_HEAP_H
+#include "Heap.h"
 
 //
 // Created by stefano on 23/12/2019.
@@ -494,5 +493,3 @@ void DoubleMinHeap::extract() {
         cout<<"\n"<<oor.what();
     }
 }
-
-#endif //LABORATORIO_HEAP_H

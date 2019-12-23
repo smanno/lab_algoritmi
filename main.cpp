@@ -23,10 +23,10 @@
 //#include "es10.h"
 //#include "es11.h"
 //#include "es12.h"
-#include "AlgoritmiSelezione.cpp"
 #include "StimaTempiOld.h"
 
 using namespace std;
+using namespace std::chrono;
 
 void calcoloRes();
 double getDuration(steady_clock::time_point,steady_clock::time_point);

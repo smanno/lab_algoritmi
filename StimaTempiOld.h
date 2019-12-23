@@ -7,9 +7,9 @@
 #ifndef math
 #include <math.h>
 #endif
-#ifndef vector
+/*#ifndef vector
 #include <vector>
-#endif
+#endif*/
 #ifndef algorithm
 #include <algorithm>
 #endif
@@ -20,7 +20,11 @@
 #include <stdlib.h>
 #endif
 
-using namespace std;
+#ifndef AlgoritmiSelezione
+#include "AlgoritmiSelezione.cpp"
+#endif
+
+//using namespace std;
 using namespace std::chrono;
 
     /** modificare le costanti a seconda delle esigenze */

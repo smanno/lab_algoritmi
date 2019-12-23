@@ -5,8 +5,11 @@
 #include <vector>
 #endif
 #ifndef Heap
-#include "Heap.h"
+#include "Heap.cpp"
 #endif
+/*#ifndef minMAXheap
+#include "minMAXheap.h"
+#endif*/
 
 using namespace std;
 

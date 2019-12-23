@@ -10,6 +10,9 @@
 #ifndef sstream
 #include <sstream>
 #endif
+#ifndef funzioni
+#include "funzioni.h"
+#endif
 
 using namespace std;
 
