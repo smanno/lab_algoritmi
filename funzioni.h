@@ -11,6 +11,9 @@
 #include <vector>
 #endif
 
+#ifndef LABORATORIO_FUNZIONI_H
+#define LABORATORIO_FUNZIONI_H
+
 using namespace std;
 
 /**
@@ -41,3 +44,5 @@ istream &operator >> (istream &in, vector<T> &vec){
         vec.push_back(value);
     return in;
 }
+
+#endif //LABORATORIO_FUNZIONI_H

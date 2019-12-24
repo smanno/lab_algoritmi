@@ -1,28 +1,6 @@
 //
 // Created by stefano on 10/12/2019.
 //
-#ifndef  iostream
-#include <iostream>
-#endif
-#ifndef math
-#include <math.h>
-#endif
-/*#ifndef vector
-#include <vector>
-#endif*/
-#ifndef algorithm
-#include <algorithm>
-#endif
-#ifndef chrono
-#include <chrono>
-#endif
-#ifndef stdlib
-#include <stdlib.h>
-#endif
-
-#ifndef AlgoritmiSelezione
-#include "AlgoritmiSelezione.cpp"
-#endif
 
 //using namespace std;
 using namespace std::chrono;
@@ -97,8 +75,8 @@ vector<int> testaAlgoritmo(vector<int> vettore, int K){
 
             /** scegliere quale funzione testare */
         //sort(vettoreCasuale.begin(), vettoreCasuale.end());
-        quickSelect(vettoreCasuale,0,vettoreCasuale.size()-1,K);
-        //heapSelect(vettoreCasuale, K);
+        quickSelect(vettoreCasuale,K);
+        //heapSelect(vettoreCasuale,K);
         // medianSelect
 
         auto stop = chrono::steady_clock::now();

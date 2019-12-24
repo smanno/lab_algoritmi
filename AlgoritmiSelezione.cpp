@@ -4,16 +4,22 @@
 #ifndef vector
 #include <vector>
 #endif
+#ifndef algorithm
+#include <algorithm>
+#endif
+#ifndef funzioni
+#include "funzioni.h"
+#endif
 #ifndef Heap
 #include "Heap.cpp"
 #endif
-/*#ifndef minMAXheap
-#include "minMAXheap.h"
-#endif*/
+
+#ifndef LABORATORIO_ALGORTIMISELEZIONE_CPP
+#define LABORATORIO_ALGORTIMISELEZIONE_CPP
 
 using namespace std;
 
-    /** QUICK SELECT */
+/** QUICK SELECT */
 int partition(vector<int> &arrayOfNumbers, int start, int end){
     int key = arrayOfNumbers[end];
     int i = start-1;
@@ -26,19 +32,31 @@ int partition(vector<int> &arrayOfNumbers, int start, int end){
     return i;
 }
 
-void quickSelect(vector<int> &arrayOfNumbers, int start, int end, int index){
+void quickSelectRec(vector<int> &arrayOfNumbers, int start, int end, int index){
     if(start>=end) return;
     if(index<start || index>end) return;
     int partitionIndex = partition(arrayOfNumbers,start,end);
-    quickSelect(arrayOfNumbers,start,partitionIndex-1,index);
-    quickSelect(arrayOfNumbers,partitionIndex+1,end,index);
+    quickSelectRec(arrayOfNumbers, start, partitionIndex - 1, index);
+    quickSelectRec(arrayOfNumbers, partitionIndex + 1, end, index);
 }
 
-    /** HEAP SELECT */
-int heapSelect(vector<int> arrayOfNumbers, int number){
-    MinHeap heapA;
-    heapA.build(arrayOfNumbers);
-    arrayOfNumbers = heapA.getVector();
+int quickSelect(vector<int> &arrayOfNumbers, int number){
+    int len = arrayOfNumbers.size();
+    quickSelectRec(arrayOfNumbers, 0, len - 1, number - 1);
+    cout<<arrayOfNumbers[number-1]<<endl;
+    return 0;
+}
+
+/** HEAP SELECT */
+struct greater1{
+    bool operator()(const long& a,const long& b) const{
+        return a>b;
+    }
+};
+
+int heapSelect(vector<int> &arrayOfNumbers, int number){
+    std::make_heap(arrayOfNumbers.begin(), arrayOfNumbers.end(), greater1()); // minHeap
+
     DoubleMinHeap heapB;
     heapB.insert(arrayOfNumbers[0],0);
     valueIndex root;
@@ -63,3 +81,6 @@ int heapSelect(vector<int> arrayOfNumbers, int number){
 }
 
     /** MEDIAN-OF-MEDIANS SELECT */
+
+
+#endif //LABORATORIO_ALGORTIMISELEZIONE_CPP

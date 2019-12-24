@@ -1,15 +1,15 @@
-#ifndef  iostream
 #include <iostream>
-#endif
-#ifndef fstream
-#include <fstream>
-#endif
-#ifndef algorithm
-#include <algorithm>
-#endif
-#ifndef chrono
 #include <chrono>
-#endif
+#include <fstream>
+#include <math.h>
+#include <algorithm>
+#include <stdlib.h>
+#include <vector>
+#include <string.h>
+#include <sstream>
+
+#include "funzioni.h"
+#include "Heap.cpp"
 
 //#include "es1.h"
 //#include "es2.h"
@@ -23,6 +23,7 @@
 //#include "es10.h"
 //#include "es11.h"
 //#include "es12.h"
+#include "AlgoritmiSelezione.cpp"
 #include "StimaTempiOld.h"
 
 using namespace std;

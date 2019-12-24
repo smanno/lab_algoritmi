@@ -1,18 +1,6 @@
 //
 // Created by stefano on 23/12/2019.
 //
-
-#include "Heap.h"
-
-//
-// Created by stefano on 23/12/2019.
-//
-
-#ifndef LABORATORIO_HEAP_H
-#define LABORATORIO_HEAP_H
-
-#endif //LABORATORIO_HEAP_H
-
 #ifndef vector
 #include <vector>
 #endif
@@ -26,17 +14,16 @@
 #include "funzioni.h"
 #endif
 
+#ifndef LABORATORIO_HEAP_CPP
+#define LABORATORIO_HEAP_CPP
+
+#include "Heap.h"
+
 using namespace std;
 
 /**
  * For both single and double heaps to get parent/left/right
- *//*
-class Heap{
-protected:
-    int parent(int);
-    int left(int);
-    int right(int);
-};
+ */
 
 // return parent of vector[index]
 int Heap::parent(int index)  { return (index - 1) / 2; }
@@ -45,35 +32,12 @@ int Heap::parent(int index)  { return (index - 1) / 2; }
 int Heap::left(int index) { return (2 * index) + 1; }
 
 // return right child of vector[index]
-int Heap::right(int index) { return (2 * index) + 2; }*/
+int Heap::right(int index) { return (2 * index) + 2; }
 
 /**
  * CLASS SingleHeap
  * has NO order
  */
-class SingleHeap/*: virtual public Heap*/{
-protected:
-    vector<int> arrayNodes;
-    int parent(int);
-    int left(int);
-    int right(int);
-public:
-    void build(vector<int>);
-    vector<int> getVector();
-    string toString();          // prints the heap structNodes
-    int length();
-    bool isEmpty();
-    int getRoot();              // returns the root without deleting it
-};
-
-// return parent of vector[index]
-int SingleHeap::parent(int index)  { return (index - 1) / 2; }
-
-// return left child of vector[index]
-int SingleHeap::left(int index) { return (2 * index) + 1; }
-
-// return right child of vector[index]
-int SingleHeap::right(int index) { return (2 * index) + 2; }
 
 // modify a SingleHeap with a new vector
 void SingleHeap::build(vector<int> input) {
@@ -128,17 +92,6 @@ vector<int> SingleHeap::getVector() {
  * every node has a value lower than his parent
  * every node has a value greater than his children
  */
-class MaxHeap: virtual public SingleHeap{
-protected:
-    void heapify();
-    void heapifyDown(int);
-    void heapifyUp(int);
-public:
-    void build(vector<int>);
-    void insert(int);           // insert new number and heapifyUp
-    void extract();             // delete the root and heapifyDown
-    void change(int,int);       // replace replace structNodes[index] with the chosen number
-};
 
 // modify and re-heapify a MaxHeap with a new vector
 void MaxHeap::build(vector<int> arrayOfNumbers) {
@@ -218,17 +171,6 @@ void MaxHeap::insert(int number) {
  * every node has a value greater than his parent
  * every node has a value lower than his children
  */
-class MinHeap: virtual public SingleHeap{
-protected:
-    void heapify();
-    void heapifyDown(int);
-    void heapifyUp(int);
-public:
-    void build(vector<int>);
-    void insert(int);           // insert new number and heapifyUp
-    void extract();             // delete the root and heapifyDown
-    void change(int,int);       // replace replace structNodes[index] with the chosen number
-};
 
 // modify and re-heapify a SingleHeap with a new vector
 void MinHeap::build(vector<int> arrayOfNumbers) {
@@ -302,62 +244,10 @@ void MinHeap::insert(int number) {
     heapifyUp(i);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-struct valueIndex {
-    int value;
-    int index;
-};
-
 /**
  * CLASS DoubleHeap
  * has NO order
  */
-class DoubleHeap/*: virtual public Heap*/{
-protected:
-    vector<valueIndex> structNodes;
-    int parent(int);
-    int left(int);
-    int right(int);
-public:
-    void build(vector<valueIndex>);
-    vector<int> getVector();
-    string toString();          // prints the heap structNodes
-    int length();
-    bool isEmpty();
-    valueIndex getRoot();              // returns the root without deleting it
-};
-
-// return parent of vector[index]
-int DoubleHeap::parent(int index)  { return (index - 1) / 2; }
-
-// return left child of vector[index]
-int DoubleHeap::left(int index) { return (2 * index) + 1; }
-
-// return right child of vector[index]
-int DoubleHeap::right(int index) { return (2 * index) + 2; }
 
 // modify a SingleHeap with a new vector
 void DoubleHeap::build(vector<valueIndex> input) {
@@ -415,18 +305,6 @@ vector<int> DoubleHeap::getVector(){
  * every node has a value greater than his parent
  * every node has a value lower than his children
  */
-
-
-class DoubleMinHeap: virtual public DoubleHeap{
-protected:
-    void heapify();
-    void heapifyDown(int);
-    void heapifyUp(int);
-public:
-    void build(vector<valueIndex>);
-    void extract();
-    void insert(int,int);
-};
 
 // modify and re-heapify a MaxHeap with a new vector
 void DoubleMinHeap::build(vector<valueIndex> input) {
@@ -493,3 +371,5 @@ void DoubleMinHeap::extract() {
         cout<<"\n"<<oor.what();
     }
 }
+
+#endif //LABORATORIO_HEAP_CPP
